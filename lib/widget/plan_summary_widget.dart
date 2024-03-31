@@ -11,7 +11,7 @@ class PlanSummaryWidget extends StatelessWidget {
       child: FractionallySizedBox(
         heightFactor: 0.88,
         widthFactor: 1,
-        child: Column(
+        child: ListView(
           children: [
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
