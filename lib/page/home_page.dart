@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarWidget(),
+        title: AppBarWidget(context),
       ),
       body: ChangeNotifierProvider<PlanViewModel>(
         create: (_) => PlanViewModel(),

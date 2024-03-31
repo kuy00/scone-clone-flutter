@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/widget/badge_widget.dart';
+import 'package:flutter_study/widget/plan_summary_widget.dart';
 
 class AppBarWidget extends AppBar {
-  AppBarWidget({super.key})
+  AppBarWidget(BuildContext context, {super.key})
       : super(
             title: GestureDetector(
-              onTap: () => print('app bar clicked'),
+              onTap: () {
+                showModalBottomSheet(
+                    showDragHandle: true,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) =>
+                        const PlanSummaryWidget());
+              },
               child: const Row(
                 children: <Widget>[
                   Text(
