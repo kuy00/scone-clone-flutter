@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_study/view_model/plan_view_model.dart';
+import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
 
 class PlanSummaryWidget extends StatelessWidget {
   const PlanSummaryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final planViewModel = PlanViewModel();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: FractionallySizedBox(
@@ -159,6 +163,29 @@ class PlanSummaryWidget extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const Row(
+              children: [
+                Text(
+                  '플랜별 소비',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: List<Widget>.generate(
+                  planViewModel.plans.length,
+                  (index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: ConsumptionByPlanWidget(
+                            planEntity: planViewModel.plans[index]),
+                      )),
             )
           ],
         ),
