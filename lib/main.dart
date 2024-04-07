@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'scone',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color(0xFFF3F3F3),
+        appBarTheme: const AppBarTheme(
+          color: Color(0xFFF3F3F3),
+        ),
         useMaterial3: true,
       ),
       home: const HomePage(),
