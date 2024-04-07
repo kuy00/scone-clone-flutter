@@ -15,8 +15,8 @@ class ConsumptionByPlanWidget extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 45,
-              height: 45,
+              width: 35,
+              height: 35,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -24,7 +24,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
               ),
               child: Text(
                 planViewModel.icon,
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
             const SizedBox(
@@ -34,12 +34,12 @@ class ConsumptionByPlanWidget extends StatelessWidget {
               children: [
                 Text(
                   planViewModel.name,
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 10),
                 ),
                 Text(
                   '${planViewModel.getTotalConsumption().toString()}원',
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 )
               ],
             )
@@ -50,7 +50,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
             Text(
               '${planViewModel.remainAmount.toString()}원',
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 12,
               ),
             ),
             const SizedBox(
@@ -59,7 +59,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
             const Text(
               '남음',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 12,
                 color: Colors.black54,
               ),
             ),
