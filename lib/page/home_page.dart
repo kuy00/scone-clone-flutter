@@ -19,15 +19,15 @@ class HomePage extends StatelessWidget {
           return Column(
             children: [
               Consumer<PlanListViewModel>(
-                  builder: (context, planViewModel, child) {
+                  builder: (context, planListViewModel, child) {
                 return Expanded(
                   child: PageView.builder(
-                      controller: planViewModel.pageController,
-                      onPageChanged: planViewModel.changePage,
-                      itemCount: planViewModel.plans.length,
+                      controller: planListViewModel.pageController,
+                      onPageChanged: planListViewModel.changePage,
+                      itemCount: planListViewModel.plans.length,
                       itemBuilder: (BuildContext context, int index) {
                         return PlanCardWidget(
-                            planEntity: planViewModel.plans[index]);
+                            planEntity: planListViewModel.plans[index]);
                       }),
                 );
               }),
