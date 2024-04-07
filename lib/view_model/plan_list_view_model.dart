@@ -55,6 +55,39 @@ class PlanListViewModel extends ChangeNotifier {
           )
         ],
         totalAmount: 1000),
+    PlanEntity(
+      id: 2,
+      type: 'FREE',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      memo: "소비계획3메모",
+      name: "소비계획3",
+      icon: "😁",
+      planHistory: [],
+      totalAmount: 1000,
+    ),
+    PlanEntity(
+      id: 3,
+      type: 'FREE',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      memo: "소비계획4메모",
+      name: "소비계획4",
+      icon: "😁",
+      planHistory: [],
+      totalAmount: 1000,
+    ),
+    PlanEntity(
+      id: 4,
+      type: 'FREE',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      memo: "소비계획5메모",
+      name: "소비계획5",
+      icon: "😁",
+      planHistory: [],
+      totalAmount: 1000,
+    ),
   ];
   int _currentPage = 0;
 
