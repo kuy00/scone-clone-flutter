@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/view_model/plan_view_model.dart';
+import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/app_bar_widget.dart';
 import 'package:flutter_study/widget/plan_card_widget.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +13,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: AppBarWidget(context),
       ),
-      body: ChangeNotifierProvider<PlanViewModel>(
-        create: (_) => PlanViewModel(),
+      body: ChangeNotifierProvider<PlanListViewModel>(
+        create: (_) => PlanListViewModel(),
         builder: (context, child) {
           return Column(
             children: [
-              Consumer<PlanViewModel>(builder: (context, planViewModel, child) {
+              Consumer<PlanListViewModel>(
+                  builder: (context, planViewModel, child) {
                 return Expanded(
                   child: PageView.builder(
                       controller: planViewModel.pageController,
@@ -36,16 +37,17 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List<Widget>.generate(
-                      context.watch<PlanViewModel>().plans.length,
+                      context.watch<PlanListViewModel>().plans.length,
                       (index) => Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: CircleAvatar(
                               radius: 8,
-                              backgroundColor:
-                                  context.watch<PlanViewModel>().currentPage ==
-                                          index
-                                      ? const Color(0xFF181818)
-                                      : Colors.grey,
+                              backgroundColor: context
+                                          .watch<PlanListViewModel>()
+                                          .currentPage ==
+                                      index
+                                  ? const Color(0xFF181818)
+                                  : Colors.grey,
                             ),
                           )),
                 ),

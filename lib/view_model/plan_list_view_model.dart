@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 
-class PlanViewModel extends ChangeNotifier {
+class PlanListViewModel extends ChangeNotifier {
   final pageController = PageController(initialPage: 0);
   final List<PlanEntity> _plans = [
     PlanEntity(
