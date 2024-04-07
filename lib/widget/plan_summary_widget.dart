@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
+import 'package:flutter_study/view_model/plan_view_model.dart';
 import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
 
 class PlanSummaryWidget extends StatelessWidget {
@@ -179,13 +180,17 @@ class PlanSummaryWidget extends StatelessWidget {
               ],
             ),
             Column(
-              children: List<Widget>.generate(
-                  planListViewModel.plans.length,
-                  (index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: ConsumptionByPlanWidget(
-                            planEntity: planListViewModel.plans[index]),
-                      )),
+              children: List<Widget>.generate(planListViewModel.plans.length,
+                  (index) {
+                final planViewModel =
+                    PlanViewModel(planListViewModel.plans[index]);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: ConsumptionByPlanWidget(
+                    planViewModel: planViewModel,
+                  ),
+                );
+              }),
             )
           ],
         ),

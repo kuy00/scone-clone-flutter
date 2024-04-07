@@ -54,7 +54,7 @@ class PlanListViewModel extends ChangeNotifier {
             amount: 200,
           )
         ],
-        totalAmount: 1000)
+        totalAmount: 1000),
   ];
   int _currentPage = 0;
 

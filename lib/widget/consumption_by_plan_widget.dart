@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/view_model/plan_view_model.dart';
 
 class ConsumptionByPlanWidget extends StatelessWidget {
-  final PlanEntity planEntity;
-  const ConsumptionByPlanWidget({super.key, required this.planEntity});
+  final PlanViewModel planViewModel;
+  const ConsumptionByPlanWidget({super.key, required this.planViewModel});
 
   @override
   Widget build(BuildContext context) {
-    final int totalConsumption =
-        planEntity.planHistory.fold(0, (sum, element) => sum + element.amount);
-    final int remainAmount = planEntity.totalAmount - totalConsumption;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -26,7 +23,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
                 color: CupertinoColors.lightBackgroundGray,
               ),
               child: Text(
-                planEntity.icon,
+                planViewModel.icon,
                 style: const TextStyle(fontSize: 20),
               ),
             ),
@@ -36,11 +33,11 @@ class ConsumptionByPlanWidget extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  planEntity.name,
+                  planViewModel.name,
                   style: const TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '${totalConsumption.toString()}원',
+                  '${planViewModel.getTotalConsumption().toString()}원',
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 )
@@ -51,7 +48,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              '${remainAmount.toString()}원',
+              '${planViewModel.remainAmount.toString()}원',
               style: const TextStyle(
                 fontSize: 15,
               ),
