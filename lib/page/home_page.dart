@@ -10,56 +10,56 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppBarWidget(context),
-      ),
-      body: ChangeNotifierProvider<PlanListViewModel>(
-        create: (_) => PlanListViewModel(),
-        builder: (context, child) {
-          return Column(
-            children: [
-              Consumer<PlanListViewModel>(
-                  builder: (context, planListViewModel, child) {
-                return Expanded(
-                  child: PageView.builder(
-                      controller: planListViewModel.pageController,
-                      onPageChanged: planListViewModel.changePage,
-                      itemCount: planListViewModel.plans.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final planViewModel =
-                            PlanViewModel(planListViewModel.plans[index]);
-                        return PlanCardWidget(
-                          planViewModel: planViewModel,
-                        );
-                      }),
-                );
-              }),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                height: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(
-                      context.watch<PlanListViewModel>().plans.length,
-                      (index) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: CircleAvatar(
-                              radius: 8,
-                              backgroundColor: context
-                                          .watch<PlanListViewModel>()
-                                          .currentPage ==
-                                      index
-                                  ? const Color(0xFF181818)
-                                  : Colors.grey,
-                            ),
-                          )),
+    return ChangeNotifierProvider<PlanListViewModel>(
+      create: (_) => PlanListViewModel(),
+      builder: (context, child) {
+        return Scaffold(
+            appBar: AppBar(
+              title: AppBarWidget(context),
+            ),
+            body: Column(
+              children: [
+                Consumer<PlanListViewModel>(
+                    builder: (context, planListViewModel, child) {
+                  return Expanded(
+                    child: PageView.builder(
+                        controller: planListViewModel.pageController,
+                        onPageChanged: planListViewModel.changePage,
+                        itemCount: planListViewModel.plans.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final planViewModel =
+                              PlanViewModel(planListViewModel.plans[index]);
+                          return PlanCardWidget(
+                            planViewModel: planViewModel,
+                          );
+                        }),
+                  );
+                }),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  height: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                        context.watch<PlanListViewModel>().plans.length,
+                        (index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: CircleAvatar(
+                                radius: 8,
+                                backgroundColor: context
+                                            .watch<PlanListViewModel>()
+                                            .currentPage ==
+                                        index
+                                    ? const Color(0xFF181818)
+                                    : Colors.grey,
+                              ),
+                            )),
+                  ),
                 ),
-              )
-            ],
-          );
-        },
-      ),
+              ],
+            ));
+      },
     );
   }
 }
