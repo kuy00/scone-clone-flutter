@@ -22,4 +22,16 @@ class PlanEntity {
     required this.planHistory,
     required this.totalAmount,
   });
+
+  int summaryAmountByHistoryType(String type) {
+    int amount = 0;
+
+    amount = planHistory.fold(
+        0, (sum, element) => element.type == type ? sum + element.amount : 0);
+
+    return amount;
+  }
+
+  int get remainAmount =>
+      totalAmount - summaryAmountByHistoryType('consumption');
 }

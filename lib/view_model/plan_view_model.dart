@@ -16,14 +16,8 @@ class PlanViewModel {
   List<PlanHistoryEntity> get planHistory => _plan.planHistory;
   int get totalAmount => _plan.totalAmount;
 
-  int getTotalConsumption() {
-    int totalConsumption = 0;
+  int get summaryAmountByHistoryType =>
+      _plan.summaryAmountByHistoryType('consumption');
 
-    totalConsumption =
-        _plan.planHistory.fold(0, (sum, element) => sum + element.amount);
-
-    return totalConsumption;
-  }
-
-  int get remainAmount => _plan.totalAmount - getTotalConsumption();
+  int get remainAmount => _plan.remainAmount;
 }

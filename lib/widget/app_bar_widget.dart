@@ -11,8 +11,7 @@ class AppBarWidget extends AppBar {
                     showDragHandle: true,
                     isScrollControlled: true,
                     context: context,
-                    builder: (BuildContext context) =>
-                        const PlanSummaryWidget());
+                    builder: (_) => PlanSummaryWidget(context));
               },
               child: const Row(
                 children: <Widget>[

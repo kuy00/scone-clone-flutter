@@ -14,9 +14,7 @@ class HomePage extends StatelessWidget {
       create: (_) => PlanListViewModel(),
       builder: (context, child) {
         return Scaffold(
-            appBar: AppBar(
-              title: AppBarWidget(context),
-            ),
+            appBar: AppBarWidget(context),
             body: Column(
               children: [
                 Consumer<PlanListViewModel>(

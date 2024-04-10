@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/view_model/plan_view_model.dart';
 import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
+import 'package:provider/provider.dart';
 
 class PlanSummaryWidget extends StatelessWidget {
-  const PlanSummaryWidget({super.key});
+  final BuildContext parentContext;
+
+  const PlanSummaryWidget(this.parentContext, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final planListViewModel = PlanListViewModel();
+    final planListViewModel = parentContext.read<PlanListViewModel>();
 
     return FractionallySizedBox(
       heightFactor: 0.88,
@@ -56,11 +59,11 @@ class PlanSummaryWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: CupertinoColors.lightBackgroundGray,
                           ),
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 '총 소비',
                                 style: TextStyle(
                                   fontSize: 13,
@@ -68,8 +71,8 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '0 원',
-                                style: TextStyle(
+                                '${planListViewModel.getTotalAmountByHistoryType('consumption').toString()} 원',
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -90,11 +93,11 @@ class PlanSummaryWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: CupertinoColors.lightBackgroundGray,
                           ),
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 '총 수입',
                                 style: TextStyle(
                                   fontSize: 13,
@@ -102,8 +105,8 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '0 원',
-                                style: TextStyle(
+                                '${planListViewModel.getTotalAmountByHistoryType('income').toString()} 원',
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green,
@@ -125,43 +128,43 @@ class PlanSummaryWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: CupertinoColors.lightBackgroundGray,
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               '남은 총 예산',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black54,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '--',
-                              style: TextStyle(
+                              '${planListViewModel.getRemainAmount.toString()}원',
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               '/',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black54,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              '설정되지 않음',
-                              style: TextStyle(
+                              '${planListViewModel.getBudget.toString()}원',
+                              style: const TextStyle(
                                 fontSize: 14,
                                 color: Colors.black54,
                               ),

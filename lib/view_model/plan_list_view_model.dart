@@ -16,14 +16,14 @@ class PlanListViewModel extends ChangeNotifier {
         planHistory: [
           PlanHistoryEntity(
             id: 0,
-            type: 'EXPENSES',
+            type: 'consumption',
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
           PlanHistoryEntity(
             id: 1,
-            type: 'EXPENSES',
+            type: 'consumption',
             memo: "메모2",
             createAt: DateTime.now(),
             amount: 200,
@@ -41,14 +41,14 @@ class PlanListViewModel extends ChangeNotifier {
         planHistory: [
           PlanHistoryEntity(
             id: 0,
-            type: 'EXPENSES',
+            type: 'consumption',
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
           PlanHistoryEntity(
             id: 1,
-            type: 'EXPENSES',
+            type: 'consumption',
             memo: "메모2",
             createAt: DateTime.now(),
             amount: 200,
@@ -63,7 +63,15 @@ class PlanListViewModel extends ChangeNotifier {
       memo: "소비계획3메모",
       name: "소비계획3",
       icon: "😁",
-      planHistory: [],
+      planHistory: [
+        PlanHistoryEntity(
+          id: 0,
+          type: 'income',
+          memo: '급여',
+          createAt: DateTime.now(),
+          amount: 100000,
+        ),
+      ],
       totalAmount: 1000,
     ),
     PlanEntity(
@@ -99,4 +107,18 @@ class PlanListViewModel extends ChangeNotifier {
     _currentPage = currentPage;
     notifyListeners();
   }
+
+  int getTotalAmountByHistoryType(String type) {
+    int totalAmount = 0;
+
+    totalAmount = _plans.fold(
+        0, (sum, plan) => sum + plan.summaryAmountByHistoryType(type));
+
+    return totalAmount;
+  }
+
+  int get getRemainAmount =>
+      _plans.fold(0, (sum, plan) => sum + plan.remainAmount);
+
+  int get getBudget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 }
