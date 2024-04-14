@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_study/utils/number_util.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
 
@@ -67,7 +68,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${planListViewModel.totalConsumption.toString()} 원',
+                                '${currencyFormat(planListViewModel.totalConsumption)} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -101,7 +102,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${planListViewModel.totalIncome.toString()} 원',
+                                '${currencyFormat(planListViewModel.totalIncome)} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -141,7 +142,7 @@ class PlanSummaryWidget extends StatelessWidget {
                             ),
                             Text(
                               planListViewModel.remainAmount > 0
-                                  ? '${planListViewModel.remainAmount.toString()}원'
+                                  ? '${currencyFormat(planListViewModel.remainAmount)}원'
                                   : '--',
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
@@ -162,7 +163,7 @@ class PlanSummaryWidget extends StatelessWidget {
                             ),
                             Text(
                               planListViewModel.budget > 0
-                                  ? '${planListViewModel.budget.toString()}원'
+                                  ? '${currencyFormat(planListViewModel.budget)}원'
                                   : '설정되지 않음',
                               style: const TextStyle(
                                 fontSize: 12,

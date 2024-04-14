@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/utils/number_util.dart';
 
 class ConsumptionByPlanWidget extends StatelessWidget {
   final PlanEntity plan;
@@ -37,7 +38,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
                   style: const TextStyle(fontSize: 10),
                 ),
                 Text(
-                  '${plan.totalConsumption.toString()}원',
+                  '${currencyFormat(plan.totalConsumption)}원',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 )
@@ -48,7 +49,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              '${plan.remainAmount.toString()}원',
+              '${currencyFormat(plan.remainAmount)}원',
               style: const TextStyle(
                 fontSize: 12,
               ),
