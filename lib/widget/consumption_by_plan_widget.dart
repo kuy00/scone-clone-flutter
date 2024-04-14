@@ -37,7 +37,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
                   style: const TextStyle(fontSize: 10),
                 ),
                 Text(
-                  '${plan.summaryAmountByHistoryType.toString()}원',
+                  '${plan.totalConsumption.toString()}원',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 )

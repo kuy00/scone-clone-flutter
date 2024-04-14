@@ -1,7 +1,6 @@
 class PlanHistoryEntity {
   int id; // 아이디
-  // TODO : type enum으로 관리
-  String type; // 타입 (수입 / 지출)
+  PlanHistoryType type;
   int amount; // 금액
   String memo; // 메모
   DateTime createAt; // 생성 일자
@@ -12,4 +11,9 @@ class PlanHistoryEntity {
       required this.amount,
       required this.memo,
       required this.createAt});
+}
+
+enum PlanHistoryType {
+  consumption, // 소비
+  income, // 소득
 }

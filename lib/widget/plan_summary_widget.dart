@@ -67,7 +67,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${planListViewModel.getTotalAmountByHistoryType('consumption').toString()} 원',
+                                '${planListViewModel.totalConsumption.toString()} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${planListViewModel.getTotalAmountByHistoryType('income').toString()} 원',
+                                '${planListViewModel.totalIncome.toString()} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class PlanSummaryWidget extends StatelessWidget {
                     height: 18,
                   ),
                   Container(
-                    height: 60,
+                    height: 55,
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -132,7 +132,7 @@ class PlanSummaryWidget extends StatelessWidget {
                             const Text(
                               '남은 총 예산',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: Colors.black54,
                               ),
                             ),
@@ -140,7 +140,9 @@ class PlanSummaryWidget extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              '${planListViewModel.getRemainAmount.toString()}원',
+                              planListViewModel.remainAmount > 0
+                                  ? '${planListViewModel.remainAmount.toString()}원'
+                                  : '--',
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
@@ -151,7 +153,7 @@ class PlanSummaryWidget extends StatelessWidget {
                             const Text(
                               '/',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: Colors.black54,
                               ),
                             ),
@@ -159,9 +161,11 @@ class PlanSummaryWidget extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              '${planListViewModel.getBudget.toString()}원',
+                              planListViewModel.budget > 0
+                                  ? '${planListViewModel.budget.toString()}원'
+                                  : '설정되지 않음',
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: Colors.black54,
                               ),
                             ),
@@ -184,17 +188,34 @@ class PlanSummaryWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    children: List<Widget>.generate(
-                        planListViewModel.plans.length, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: ConsumptionByPlanWidget(
-                          plan: planListViewModel.plans[index],
-                        ),
-                      );
-                    }),
-                  )
+                  planListViewModel.plans.isNotEmpty
+                      ? Column(
+                          children: List<Widget>.generate(
+                              planListViewModel.plans.length, (index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: ConsumptionByPlanWidget(
+                                plan: planListViewModel.plans[index],
+                              ),
+                            );
+                          }),
+                        )
+                      : const Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Center(
+                              child: Text(
+                                '진행중인 플랜이 없습니다.',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
                 ],
               ),
             )),

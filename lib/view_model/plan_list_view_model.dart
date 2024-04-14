@@ -16,14 +16,14 @@ class PlanListViewModel extends ChangeNotifier {
         planHistory: [
           PlanHistoryEntity(
             id: 0,
-            type: 'consumption',
+            type: PlanHistoryType.consumption,
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
           PlanHistoryEntity(
             id: 1,
-            type: 'consumption',
+            type: PlanHistoryType.consumption,
             memo: "메모2",
             createAt: DateTime.now(),
             amount: 200,
@@ -41,14 +41,14 @@ class PlanListViewModel extends ChangeNotifier {
         planHistory: [
           PlanHistoryEntity(
             id: 0,
-            type: 'consumption',
+            type: PlanHistoryType.consumption,
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
           PlanHistoryEntity(
             id: 1,
-            type: 'consumption',
+            type: PlanHistoryType.consumption,
             memo: "메모2",
             createAt: DateTime.now(),
             amount: 200,
@@ -66,7 +66,7 @@ class PlanListViewModel extends ChangeNotifier {
       planHistory: [
         PlanHistoryEntity(
           id: 0,
-          type: 'income',
+          type: PlanHistoryType.income,
           memo: '급여',
           createAt: DateTime.now(),
           amount: 100000,
@@ -108,17 +108,13 @@ class PlanListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int getTotalAmountByHistoryType(String type) {
-    int totalAmount = 0;
+  int get totalConsumption =>
+      _plans.fold(0, (sum, plan) => sum + plan.totalConsumption);
 
-    totalAmount = _plans.fold(
-        0, (sum, plan) => sum + plan.summaryAmountByHistoryType(type));
+  int get totalIncome => _plans.fold(0, (sum, plan) => sum + plan.totalIncome);
 
-    return totalAmount;
-  }
-
-  int get getRemainAmount =>
+  int get remainAmount =>
       _plans.fold(0, (sum, plan) => sum + plan.remainAmount);
 
-  int get getBudget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
+  int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 }
