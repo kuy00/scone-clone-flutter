@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
-import 'package:flutter_study/view_model/plan_view_model.dart';
 import 'package:flutter_study/widget/app_bar_widget.dart';
 import 'package:flutter_study/widget/plan_card_widget.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +24,8 @@ class HomePage extends StatelessWidget {
                         onPageChanged: planListViewModel.changePage,
                         itemCount: planListViewModel.plans.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final planViewModel =
-                              PlanViewModel(planListViewModel.plans[index]);
                           return PlanCardWidget(
-                            planViewModel: planViewModel,
+                            plan: planListViewModel.plans[index],
                           );
                         }),
                   );

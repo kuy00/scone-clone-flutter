@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study/view_model/plan_view_model.dart';
+import 'package:flutter_study/entity/plan_entity.dart';
 
 class ConsumptionByPlanWidget extends StatelessWidget {
-  final PlanViewModel planViewModel;
-  const ConsumptionByPlanWidget({super.key, required this.planViewModel});
+  final PlanEntity plan;
+  const ConsumptionByPlanWidget({super.key, required this.plan});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
                 color: CupertinoColors.lightBackgroundGray,
               ),
               child: Text(
-                planViewModel.icon,
+                plan.icon,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -32,11 +32,11 @@ class ConsumptionByPlanWidget extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  planViewModel.name,
+                  plan.name,
                   style: const TextStyle(fontSize: 10),
                 ),
                 Text(
-                  '${planViewModel.summaryAmountByHistoryType.toString()}원',
+                  '${plan.summaryAmountByHistoryType.toString()}원',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 )
@@ -47,7 +47,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              '${planViewModel.remainAmount.toString()}원',
+              '${plan.remainAmount.toString()}원',
               style: const TextStyle(
                 fontSize: 12,
               ),

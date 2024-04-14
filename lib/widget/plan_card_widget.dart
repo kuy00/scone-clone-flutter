@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/view_model/plan_view_model.dart';
+import 'package:flutter_study/entity/plan_entity.dart';
 
 class PlanCardWidget extends StatelessWidget {
-  final PlanViewModel planViewModel;
-  const PlanCardWidget({super.key, required this.planViewModel});
+  final PlanEntity plan;
+  const PlanCardWidget({super.key, required this.plan});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class PlanCardWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(planViewModel.icon),
-                Text(planViewModel.name),
+                Text(plan.icon),
+                Text(plan.name),
               ],
             ),
           ],
