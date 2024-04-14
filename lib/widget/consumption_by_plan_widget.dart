@@ -8,6 +8,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO : 플랜의 타입에 맞춰서 수정 필요
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

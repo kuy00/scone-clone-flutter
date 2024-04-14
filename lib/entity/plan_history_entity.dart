@@ -1,5 +1,6 @@
 class PlanHistoryEntity {
   int id; // 아이디
+  // TODO : type enum으로 관리
   String type; // 타입 (수입 / 지출)
   int amount; // 금액
   String memo; // 메모
