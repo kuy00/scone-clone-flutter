@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/view_model/plan_view_model.dart';
 import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
-import 'package:provider/provider.dart';
 
 class PlanSummaryWidget extends StatelessWidget {
-  final BuildContext parentContext;
+  final PlanListViewModel planListViewModel;
 
-  const PlanSummaryWidget(this.parentContext, {super.key});
+  const PlanSummaryWidget(this.planListViewModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final planListViewModel = parentContext.read<PlanListViewModel>();
-
     return FractionallySizedBox(
       heightFactor: 0.88,
       widthFactor: 1,

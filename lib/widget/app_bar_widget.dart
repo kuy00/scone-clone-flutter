@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/badge_widget.dart';
 import 'package:flutter_study/widget/plan_summary_widget.dart';
+import 'package:provider/provider.dart';
 
 class AppBarWidget extends AppBar {
   AppBarWidget(BuildContext context, {super.key})
@@ -11,7 +13,10 @@ class AppBarWidget extends AppBar {
                     showDragHandle: true,
                     isScrollControlled: true,
                     context: context,
-                    builder: (_) => PlanSummaryWidget(context));
+                    builder: (_) {
+                      return PlanSummaryWidget(
+                          context.watch<PlanListViewModel>());
+                    });
               },
               child: const Row(
                 children: <Widget>[
