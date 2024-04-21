@@ -27,8 +27,9 @@ class PlanCardWidget extends StatelessWidget {
               height: 60,
             ),
             TimerCircularIndicator(
-              percent: plan.totalConsumption.toDouble() /
-                  plan.totalAmount.toDouble(),
+              percent:
+                  DateTime.now().difference(plan.endDate).inDays.toDouble() /
+                      plan.startDate.difference(plan.endDate).inDays.toDouble(),
               center: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [Text('남은 예산'), Text('1,000 원')],
