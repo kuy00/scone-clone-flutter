@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/utils/number_util.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/consumption_by_plan_widget.dart';
+import 'package:provider/provider.dart';
 
 class PlanSummaryWidget extends StatelessWidget {
-  final PlanListViewModel planListViewModel;
-
-  const PlanSummaryWidget(this.planListViewModel, {super.key});
+  const PlanSummaryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${currencyFormat(planListViewModel.totalConsumption)} 원',
+                                '${currencyFormat(context.read<PlanListViewModel>().totalConsumption)} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -102,7 +101,7 @@ class PlanSummaryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${currencyFormat(planListViewModel.totalIncome)} 원',
+                                '${currencyFormat(context.read<PlanListViewModel>().totalIncome)} 원',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -141,8 +140,8 @@ class PlanSummaryWidget extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              planListViewModel.remainAmount > 0
-                                  ? '${currencyFormat(planListViewModel.remainAmount)}원'
+                              context.read<PlanListViewModel>().remainAmount > 0
+                                  ? '${currencyFormat(context.read<PlanListViewModel>().remainAmount)}원'
                                   : '--',
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
@@ -162,8 +161,8 @@ class PlanSummaryWidget extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              planListViewModel.budget > 0
-                                  ? '${currencyFormat(planListViewModel.budget)}원'
+                              context.read<PlanListViewModel>().budget > 0
+                                  ? '${currencyFormat(context.read<PlanListViewModel>().budget)}원'
                                   : '설정되지 않음',
                               style: const TextStyle(
                                 fontSize: 12,
@@ -189,14 +188,17 @@ class PlanSummaryWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  planListViewModel.plans.isNotEmpty
+                  context.read<PlanListViewModel>().plans.isNotEmpty
                       ? Column(
                           children: List<Widget>.generate(
-                              planListViewModel.plans.length, (index) {
+                              context.read<PlanListViewModel>().plans.length,
+                              (index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: ConsumptionByPlanWidget(
-                                plan: planListViewModel.plans[index],
+                                plan: context
+                                    .read<PlanListViewModel>()
+                                    .plans[index],
                               ),
                             );
                           }),

@@ -10,13 +10,15 @@ class AppBarWidget extends AppBar {
             title: GestureDetector(
               onTap: () {
                 showModalBottomSheet(
-                    showDragHandle: true,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (_) {
-                      return PlanSummaryWidget(
-                          context.watch<PlanListViewModel>());
-                    });
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) =>
+                      ChangeNotifierProvider<PlanListViewModel>.value(
+                    value: context.watch<PlanListViewModel>(),
+                    child: const PlanSummaryWidget(),
+                  ),
+                );
               },
               child: const Row(
                 children: <Widget>[
