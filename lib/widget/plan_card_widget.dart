@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/widget/timer_circular_indicator.dart';
+import 'package:flutter_study/widget/free_circular_indicator.dart';
 
 class PlanCardWidget extends StatelessWidget {
   final PlanEntity plan;
@@ -8,34 +8,56 @@ class PlanCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(50),
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(plan.icon),
-                Text(plan.name),
-              ],
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            TimerCircularIndicator(
-              percent:
-                  DateTime.now().difference(plan.endDate).inDays.toDouble() /
-                      plan.startDate.difference(plan.endDate).inDays.toDouble(),
-              center: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('남은 예산'), Text('1,000 원')],
+    return GestureDetector(
+      onTap: () => print('상세 내역'),
+      child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    plan.icon,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    plan.name,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ));
+              FreeCircularIndicator(plan: plan),
+              ElevatedButton(
+                onPressed: () => print('내역 추가'),
+                style: ButtonStyle(
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Colors.blueAccent),
+                  minimumSize:
+                      const MaterialStatePropertyAll(Size.fromHeight(50)),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(14)),
+                  ),
+                ),
+                child: const Text(
+                  '내역 추가',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          )),
+    );
   }
 }
