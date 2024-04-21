@@ -7,7 +7,7 @@ class PlanListViewModel extends ChangeNotifier {
   final List<PlanEntity> _plans = [
     PlanEntity(
         id: 0,
-        type: "FREE",
+        type: PlanType.free,
         startDate: DateTime.now(),
         endDate: DateTime.now(),
         memo: "소비계획1메모",
@@ -29,10 +29,10 @@ class PlanListViewModel extends ChangeNotifier {
             amount: 500,
           )
         ],
-        totalAmount: 1000),
+        totalAmount: 0),
     PlanEntity(
         id: 1,
-        type: 'FREE',
+        type: PlanType.plan,
         startDate: DateTime.now(),
         endDate: DateTime.now(),
         memo: "소비계획2메모",
@@ -57,7 +57,7 @@ class PlanListViewModel extends ChangeNotifier {
         totalAmount: 1000),
     PlanEntity(
       id: 2,
-      type: 'FREE',
+      type: PlanType.plan,
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       memo: "소비계획3메모",
@@ -76,7 +76,7 @@ class PlanListViewModel extends ChangeNotifier {
     ),
     PlanEntity(
       id: 3,
-      type: 'FREE',
+      type: PlanType.plan,
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       memo: "소비계획4메모",
@@ -87,14 +87,14 @@ class PlanListViewModel extends ChangeNotifier {
     ),
     PlanEntity(
       id: 4,
-      type: 'FREE',
+      type: PlanType.free,
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       memo: "소비계획5메모",
       name: "소비계획5",
       icon: "😁",
       planHistory: [],
-      totalAmount: 1000,
+      totalAmount: 0,
     ),
   ];
   int _currentPage = 0;

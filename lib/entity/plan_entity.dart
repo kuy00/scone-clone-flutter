@@ -4,8 +4,7 @@ class PlanEntity {
   int id; // 아이디
   DateTime startDate; // 시작일
   DateTime endDate; // 종료일
-  // TODO : type enum으로 관리
-  String type; // 타입 (계획 / 자유)
+  PlanType type; // 타입 (계획 / 자유)
   String name; // 이름
   String memo; // 설명 (메모)
   String icon; // 아이콘
@@ -36,4 +35,9 @@ class PlanEntity {
           element.type == PlanHistoryType.income ? sum + element.amount : 0);
 
   int get remainAmount => totalAmount - totalConsumption;
+}
+
+enum PlanType {
+  plan,
+  free,
 }
