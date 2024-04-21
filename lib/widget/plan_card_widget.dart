@@ -56,7 +56,10 @@ class PlanCardWidget extends StatelessWidget {
                 ),
                 child: const Text(
                   '내역 추가',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               )
             ],
