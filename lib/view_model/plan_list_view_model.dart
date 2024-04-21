@@ -26,7 +26,7 @@ class PlanListViewModel extends ChangeNotifier {
             type: PlanHistoryType.consumption,
             memo: "메모2",
             createAt: DateTime.now(),
-            amount: 200,
+            amount: 500,
           )
         ],
         totalAmount: 1000),

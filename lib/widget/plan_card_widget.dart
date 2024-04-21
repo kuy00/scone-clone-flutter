@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/widget/timer_circular_indicator.dart';
 
 class PlanCardWidget extends StatelessWidget {
   final PlanEntity plan;
@@ -22,6 +23,17 @@ class PlanCardWidget extends StatelessWidget {
                 Text(plan.name),
               ],
             ),
+            const SizedBox(
+              height: 60,
+            ),
+            TimerCircularIndicator(
+              percent: plan.totalConsumption.toDouble() /
+                  plan.totalAmount.toDouble(),
+              center: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text('남은 예산'), Text('1,000 원')],
+              ),
+            )
           ],
         ));
   }
