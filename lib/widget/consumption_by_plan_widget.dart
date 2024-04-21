@@ -9,7 +9,6 @@ class ConsumptionByPlanWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO : 플랜의 타입에 맞춰서 수정 필요
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -32,6 +31,7 @@ class ConsumptionByPlanWidget extends StatelessWidget {
               width: 15,
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   plan.name,
@@ -49,17 +49,19 @@ class ConsumptionByPlanWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              '${currencyFormat(plan.remainAmount)}원',
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+              plan.type == PlanType.free
+                  ? '${currencyFormat(plan.totalIncome)}원'
+                  : '${currencyFormat(plan.remainAmount)}원',
+              style: plan.type == PlanType.free
+                  ? const TextStyle(fontSize: 12, color: Colors.green)
+                  : const TextStyle(fontSize: 12, color: Colors.black),
             ),
             const SizedBox(
               width: 10,
             ),
-            const Text(
-              '남음',
-              style: TextStyle(
+            Text(
+              plan.type == PlanType.free ? '수입' : '남음',
+              style: const TextStyle(
                 fontSize: 12,
                 color: Colors.black54,
               ),

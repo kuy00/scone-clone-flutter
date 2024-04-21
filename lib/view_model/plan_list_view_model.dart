@@ -8,10 +8,10 @@ class PlanListViewModel extends ChangeNotifier {
     PlanEntity(
         id: 0,
         type: PlanType.free,
-        startDate: DateTime.now(),
-        endDate: DateTime.now(),
-        memo: "소비계획1메모",
-        name: "소비계획1",
+        startDate: DateTime(2024, 4, 21),
+        endDate: DateTime(2024, 5, 1),
+        memo: "자유1",
+        name: "자유1",
         icon: "😀",
         planHistory: [
           PlanHistoryEntity(
@@ -33,10 +33,10 @@ class PlanListViewModel extends ChangeNotifier {
     PlanEntity(
         id: 1,
         type: PlanType.plan,
-        startDate: DateTime.now(),
-        endDate: DateTime.now(),
-        memo: "소비계획2메모",
-        name: "소비계획2",
+        startDate: DateTime(2024, 4, 1),
+        endDate: DateTime(2024, 4, 28),
+        memo: "계획1",
+        name: "계획1",
         icon: "😍",
         planHistory: [
           PlanHistoryEntity(
@@ -57,11 +57,11 @@ class PlanListViewModel extends ChangeNotifier {
         totalAmount: 1000),
     PlanEntity(
       id: 2,
-      type: PlanType.plan,
-      startDate: DateTime.now(),
-      endDate: DateTime.now(),
-      memo: "소비계획3메모",
-      name: "소비계획3",
+      type: PlanType.free,
+      startDate: DateTime(2024, 4, 1),
+      endDate: DateTime(2024, 5, 1),
+      memo: "자유2",
+      name: "자유2",
       icon: "😁",
       planHistory: [
         PlanHistoryEntity(
@@ -72,15 +72,15 @@ class PlanListViewModel extends ChangeNotifier {
           amount: 100000,
         ),
       ],
-      totalAmount: 1000,
+      totalAmount: 0,
     ),
     PlanEntity(
       id: 3,
       type: PlanType.plan,
-      startDate: DateTime.now(),
-      endDate: DateTime.now(),
-      memo: "소비계획4메모",
-      name: "소비계획4",
+      startDate: DateTime(2024, 4, 1),
+      endDate: DateTime(2024, 5, 1),
+      memo: "계획2",
+      name: "계획2",
       icon: "😁",
       planHistory: [],
       totalAmount: 1000,
@@ -88,10 +88,10 @@ class PlanListViewModel extends ChangeNotifier {
     PlanEntity(
       id: 4,
       type: PlanType.free,
-      startDate: DateTime.now(),
-      endDate: DateTime.now(),
-      memo: "소비계획5메모",
-      name: "소비계획5",
+      startDate: DateTime(2024, 4, 1),
+      endDate: DateTime(2024, 5, 1),
+      memo: "자유3",
+      name: "자유3",
       icon: "😁",
       planHistory: [],
       totalAmount: 0,
@@ -113,8 +113,10 @@ class PlanListViewModel extends ChangeNotifier {
 
   int get totalIncome => _plans.fold(0, (sum, plan) => sum + plan.totalIncome);
 
-  int get remainAmount =>
-      _plans.fold(0, (sum, plan) => sum + plan.remainAmount);
+  int get remainAmount => _plans.fold(
+      0,
+      (sum, plan) =>
+          sum + (plan.type == PlanType.plan ? plan.remainAmount : 0));
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 }
