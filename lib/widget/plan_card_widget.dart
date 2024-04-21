@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/widget/free_circular_indicator.dart';
+import 'package:flutter_study/widget/plan_circular_indicator.dart';
 
 class PlanCardWidget extends StatelessWidget {
   final PlanEntity plan;
@@ -38,7 +39,9 @@ class PlanCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              FreeCircularIndicator(plan: plan),
+              plan.type == PlanType.free
+                  ? FreeCircularIndicator(plan: plan)
+                  : PlanCircularIndicator(plan: plan),
               ElevatedButton(
                 onPressed: () => print('내역 추가'),
                 style: ButtonStyle(
