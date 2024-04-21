@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/widget/free_circular_indicator.dart';
 import 'package:flutter_study/widget/plan_circular_indicator.dart';
+import 'package:go_router/go_router.dart';
 
 class PlanCardWidget extends StatelessWidget {
   final PlanEntity plan;
@@ -43,7 +44,7 @@ class PlanCardWidget extends StatelessWidget {
                   ? FreeCircularIndicator(plan: plan)
                   : PlanCircularIndicator(plan: plan),
               ElevatedButton(
-                onPressed: () => print('내역 추가'),
+                onPressed: () => context.push('/addPlan'),
                 style: ButtonStyle(
                   backgroundColor:
                       const MaterialStatePropertyAll(Colors.blueAccent),
