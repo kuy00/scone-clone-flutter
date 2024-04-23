@@ -11,10 +11,10 @@ class FreeTypeCircularIndicator extends StatefulWidget {
   const FreeTypeCircularIndicator({super.key, required this.plan});
 
   @override
-  State<StatefulWidget> createState() => _FreeTypeCircularIndicator();
+  State<StatefulWidget> createState() => _FreeTypeCircularIndicatorState();
 }
 
-class _FreeTypeCircularIndicator extends State<FreeTypeCircularIndicator> {
+class _FreeTypeCircularIndicatorState extends State<FreeTypeCircularIndicator> {
   bool _isPressed = false;
 
   @override
@@ -31,6 +31,7 @@ class _FreeTypeCircularIndicator extends State<FreeTypeCircularIndicator> {
       backgroundWidth: 1.5,
       percent: percent,
       circularStrokeCap: CircularStrokeCap.round,
+      backgroundColor: const Color(0xFFF2F2F2),
       progressColor: Colors.black,
       widgetIndicator: Center(
         child: Container(
@@ -58,6 +59,7 @@ class _FreeTypeCircularIndicator extends State<FreeTypeCircularIndicator> {
             )),
       ),
       animation: true,
+      // TODO : animation 추가
       center: _isPressed
           ? CircularInnerRemainingTime(
               startDate: widget.plan.startDate, endDate: widget.plan.endDate)

@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/utils/number_util.dart';
+import 'package:flutter_study/widget/circular_inner_plan_type_info.dart';
+import 'package:flutter_study/widget/circular_inner_remaining_time.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class PlanTypeCircularIndicator extends StatelessWidget {
+class PlanTypeCircularIndicator extends StatefulWidget {
   final PlanEntity plan;
 
   const PlanTypeCircularIndicator({super.key, required this.plan});
 
   @override
+  State<StatefulWidget> createState() => _PlanTypeCircularIndicatorState();
+}
+
+class _PlanTypeCircularIndicatorState extends State<PlanTypeCircularIndicator> {
+  bool _isPressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    final double percent =
-        DateTime.now().difference(plan.endDate).inDays.toDouble() /
-            plan.startDate.difference(plan.endDate).inDays.toDouble();
+    final double percent = DateTime.now()
+            .difference(widget.plan.endDate)
+            .inDays
+            .toDouble() /
+        widget.plan.startDate.difference(widget.plan.endDate).inDays.toDouble();
 
     return CircularPercentIndicator(
         radius: 100,
-        lineWidth: 1.5,
+        lineWidth: _isPressed ? 4 : 1.5,
         percent: percent,
         circularStrokeCap: CircularStrokeCap.round,
-        progressColor: const Color(0xFFB8C7CB),
+        progressColor: const Color(0xFFF2F2F2),
         backgroundColor: Colors.transparent,
         widgetIndicator: Center(
           child: Container(
@@ -30,68 +40,42 @@ class PlanTypeCircularIndicator extends StatelessWidget {
               color: Colors.white,
               shape: BoxShape.circle,
             ),
-            child: Transform.rotate(
-              angle: radians(-360 * percent).toDouble(),
-              child: SvgPicture.asset(
-                'assets/icons/timer.svg',
-                colorFilter:
-                    const ColorFilter.mode(Color(0xFFB8C7CB), BlendMode.srcIn),
-              ),
-            ),
+            child: Listener(
+                onPointerDown: (e) => setState(() {
+                      _isPressed = true;
+                    }),
+                onPointerUp: (e) => setState(() {
+                      _isPressed = false;
+                    }),
+                child: Transform.rotate(
+                  angle: radians(-360 * percent).toDouble(),
+                  child: SvgPicture.asset(
+                    'assets/icons/timer.svg',
+                    colorFilter: const ColorFilter.mode(
+                        Color(0xFFF2F2F2), BlendMode.srcIn),
+                  ),
+                )),
           ),
         ),
         animation: true,
         center: CircularPercentIndicator(
           radius: 90,
           lineWidth: 12,
-          percent: plan.remainAmount.toDouble() / plan.totalAmount.toDouble(),
+          percent: widget.plan.remainAmount.toDouble() /
+              widget.plan.totalAmount.toDouble(),
           circularStrokeCap: CircularStrokeCap.round,
-          progressColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFFF2F2F2),
+          progressColor:
+              _isPressed ? const Color(0xFFD5D5D5) : const Color(0xFF1773FC),
           animation: true,
-          center: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                '남은 예산',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 10,
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${currencyFormat(plan.remainAmount)}원',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 2,
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 12,
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '/ ${currencyFormat(plan.totalAmount)}원',
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          ),
+          // TODO : animation 추가
+          center: _isPressed
+              ? CircularInnerRemainingTime(
+                  startDate: widget.plan.startDate,
+                  endDate: widget.plan.endDate)
+              : CircularInnerPlanTypeInfo(
+                  remainAmount: widget.plan.remainAmount,
+                  totalAmount: widget.plan.totalAmount),
         ));
   }
 }

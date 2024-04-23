@@ -47,7 +47,7 @@ class PlanCardWidget extends StatelessWidget {
                 onPressed: () => context.push('/addPlan'),
                 style: ButtonStyle(
                   backgroundColor:
-                      const MaterialStatePropertyAll(Colors.blueAccent),
+                      const MaterialStatePropertyAll(Color(0xFF1773FC)),
                   minimumSize:
                       const MaterialStatePropertyAll(Size.fromHeight(50)),
                   shape: MaterialStatePropertyAll(
