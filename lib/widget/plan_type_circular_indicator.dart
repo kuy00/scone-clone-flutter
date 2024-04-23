@@ -4,10 +4,10 @@ import 'package:flutter_study/utils/number_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class PlanCircularIndicator extends StatelessWidget {
+class PlanTypeCircularIndicator extends StatelessWidget {
   final PlanEntity plan;
 
-  const PlanCircularIndicator({super.key, required this.plan});
+  const PlanTypeCircularIndicator({super.key, required this.plan});
 
   @override
   Widget build(BuildContext context) {
