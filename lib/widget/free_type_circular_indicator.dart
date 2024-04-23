@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/utils/number_util.dart';
 import 'package:flutter_study/widget/circular_inner_free_type_info.dart';
 import 'package:flutter_study/widget/circular_inner_remaining_time.dart';
 import 'package:flutter_svg/flutter_svg.dart';
