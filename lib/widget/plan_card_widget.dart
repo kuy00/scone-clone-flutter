@@ -31,13 +31,25 @@ class PlanCardWidget extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    plan.name,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Column(
+                    children: [
+                      Text(
+                        plan.name,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      if (plan.memo != '')
+                        Text(
+                          plan.memo,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.grey,
+                          ),
+                        ),
+                    ],
+                  )
                 ],
               ),
               plan.type == PlanType.free

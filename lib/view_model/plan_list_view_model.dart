@@ -10,7 +10,7 @@ class PlanListViewModel extends ChangeNotifier {
         type: PlanType.free,
         startDate: DateTime(2024, 4, 21),
         endDate: DateTime(2024, 5, 1),
-        memo: "자유1",
+        memo: "",
         name: "자유1",
         icon: "😀",
         planHistory: [
@@ -35,7 +35,7 @@ class PlanListViewModel extends ChangeNotifier {
         type: PlanType.plan,
         startDate: DateTime(2024, 4, 1),
         endDate: DateTime(2024, 4, 28),
-        memo: "계획1",
+        memo: "",
         name: "계획1",
         icon: "😍",
         planHistory: [
