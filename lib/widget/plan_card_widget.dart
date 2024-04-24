@@ -43,26 +43,49 @@ class PlanCardWidget extends StatelessWidget {
               plan.type == PlanType.free
                   ? FreeTypeCircularIndicator(plan: plan)
                   : PlanTypeCircularIndicator(plan: plan),
-              ElevatedButton(
-                onPressed: () => context.push('/addPlan'),
-                style: ButtonStyle(
-                  backgroundColor:
-                      const MaterialStatePropertyAll(Color(0xFF1773FC)),
-                  minimumSize:
-                      const MaterialStatePropertyAll(Size.fromHeight(50)),
-                  shape: MaterialStatePropertyAll(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(14)),
-                  ),
-                ),
-                child: const Text(
-                  '내역 추가',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
+              plan.endDate.difference(DateTime.now()).inDays.toInt() < 0
+                  ? ElevatedButton(
+                      onPressed: () => print('complete  plan'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Colors.green),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size.fromHeight(50)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(14)),
+                        ),
+                      ),
+                      child: const Text(
+                        '플랜 완료',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : ElevatedButton(
+                      onPressed: () => context.push('/addPlan'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFF1773FC)),
+                        minimumSize:
+                            const MaterialStatePropertyAll(Size.fromHeight(50)),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(14)),
+                        ),
+                      ),
+                      child: const Text(
+                        '내역 추가',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
             ],
           )),
     );

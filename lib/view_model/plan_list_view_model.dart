@@ -96,6 +96,42 @@ class PlanListViewModel extends ChangeNotifier {
       planHistory: [],
       totalAmount: 0,
     ),
+    PlanEntity(
+        id: 5,
+        type: PlanType.free,
+        startDate: DateTime(2024, 4, 21),
+        endDate: DateTime(2024, 4, 23),
+        memo: "자유4",
+        name: "자유4",
+        icon: "😀",
+        planHistory: [
+          PlanHistoryEntity(
+            id: 0,
+            type: PlanHistoryType.consumption,
+            memo: "메모1",
+            createAt: DateTime.now(),
+            amount: 1000,
+          ),
+        ],
+        totalAmount: 0),
+    PlanEntity(
+        id: 6,
+        type: PlanType.plan,
+        startDate: DateTime(2024, 4, 21),
+        endDate: DateTime(2024, 4, 23),
+        memo: "계획3",
+        name: "계획3",
+        icon: "😀",
+        planHistory: [
+          PlanHistoryEntity(
+            id: 0,
+            type: PlanHistoryType.consumption,
+            memo: "메모1",
+            createAt: DateTime.now(),
+            amount: 7000,
+          ),
+        ],
+        totalAmount: 10000),
   ];
   int _currentPage = 0;
 

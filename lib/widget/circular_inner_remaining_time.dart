@@ -25,20 +25,29 @@ class CircularInnerRemainingTime extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${endDate.difference(DateTime.now()).inDays}일',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            endDate.difference(DateTime.now()).inDays.toInt() < 0
+                ? const Text(
+                    '완료',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  )
+                : Text(
+                    '${endDate.difference(DateTime.now()).inDays}일',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ],
         ),
         const SizedBox(
           height: 5,
         ),
         Text(
-          '${endDate.difference(startDate).inDays}일',
+          '/ ${endDate.difference(startDate).inDays}일',
           style: const TextStyle(
             color: Colors.grey,
             fontSize: 13,

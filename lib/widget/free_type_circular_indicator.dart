@@ -29,7 +29,7 @@ class _FreeTypeCircularIndicatorState extends State<FreeTypeCircularIndicator> {
       radius: 90,
       lineWidth: _isPressed ? 4 : 1.5,
       backgroundWidth: 1.5,
-      percent: percent,
+      percent: percent < 0 ? 0 : percent,
       circularStrokeCap: CircularStrokeCap.round,
       backgroundColor: const Color(0xFFF2F2F2),
       progressColor: Colors.black,
@@ -49,7 +49,7 @@ class _FreeTypeCircularIndicatorState extends State<FreeTypeCircularIndicator> {
                 _isPressed = false;
               }),
               child: Transform.rotate(
-                angle: radians(-360 * percent).toDouble(),
+                angle: percent < 0 ? 0 : radians(-360 * percent).toDouble(),
                 child: SvgPicture.asset(
                   'assets/icons/timer.svg',
                   colorFilter:

@@ -28,7 +28,7 @@ class _PlanTypeCircularIndicatorState extends State<PlanTypeCircularIndicator> {
     return CircularPercentIndicator(
         radius: 100,
         lineWidth: _isPressed ? 4 : 1.5,
-        percent: percent,
+        percent: percent < 0 ? 0 : percent,
         circularStrokeCap: CircularStrokeCap.round,
         progressColor: const Color(0xFFF2F2F2),
         backgroundColor: Colors.transparent,
@@ -48,7 +48,7 @@ class _PlanTypeCircularIndicatorState extends State<PlanTypeCircularIndicator> {
                       _isPressed = false;
                     }),
                 child: Transform.rotate(
-                  angle: radians(-360 * percent).toDouble(),
+                  angle: percent < 0 ? 0 : radians(-360 * percent).toDouble(),
                   child: SvgPicture.asset(
                     'assets/icons/timer.svg',
                     colorFilter: const ColorFilter.mode(
@@ -65,8 +65,9 @@ class _PlanTypeCircularIndicatorState extends State<PlanTypeCircularIndicator> {
               widget.plan.totalAmount.toDouble(),
           circularStrokeCap: CircularStrokeCap.round,
           backgroundColor: const Color(0xFFF2F2F2),
-          progressColor:
-              _isPressed ? const Color(0xFFD5D5D5) : const Color(0xFF1773FC),
+          progressColor: _isPressed || percent < 0
+              ? const Color(0xFFD5D5D5)
+              : const Color(0xFF1773FC),
           animation: true,
           // TODO : animation 추가
           center: _isPressed
