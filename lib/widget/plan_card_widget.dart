@@ -78,7 +78,9 @@ class PlanCardWidget extends StatelessWidget {
                       ),
                     )
                   : ElevatedButton(
-                      onPressed: () => context.push('/addPlan'),
+                      onPressed: () => context
+                          .push('/plan/${plan.id}/addHistory')
+                          .then((value) => print('callback')),
                       style: ButtonStyle(
                         backgroundColor:
                             const MaterialStatePropertyAll(Color(0xFF1773FC)),
