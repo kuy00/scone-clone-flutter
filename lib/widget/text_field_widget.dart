@@ -10,8 +10,6 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? suffix;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final double? width;
-  final double? height;
   final GestureTapCallback? onTap;
   final TapRegionCallback? onTapOutside;
   final bool? readOnly;
@@ -26,8 +24,6 @@ class TextFieldWidget extends StatelessWidget {
     this.suffix,
     this.inputFormatters,
     this.keyboardType,
-    this.width,
-    this.height,
     this.onTap,
     this.onTapOutside,
     this.readOnly,
@@ -35,41 +31,30 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF6F6F6),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: SizedBox(
-        child: Row(
-          children: [
-            Container(
-              child: prefix,
-            ),
-            Expanded(
-                child: TextField(
-              controller: controller,
-              onChanged: onChanged,
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: hintStyle,
-                border: InputBorder.none,
-              ),
-              inputFormatters: inputFormatters,
-              keyboardType: keyboardType ?? TextInputType.text,
-              onTap: onTap,
-              onTapOutside: onTapOutside,
-              readOnly: readOnly ?? false,
-            )),
-            Container(
-              child: suffix,
-            )
-          ],
+    return Row(
+      children: [
+        Container(
+          child: prefix,
         ),
-      ),
+        Expanded(
+            child: TextField(
+          controller: controller,
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: hintStyle,
+            border: InputBorder.none,
+          ),
+          inputFormatters: inputFormatters,
+          keyboardType: keyboardType ?? TextInputType.text,
+          onTap: onTap,
+          onTapOutside: onTapOutside,
+          readOnly: readOnly ?? false,
+        )),
+        Container(
+          child: suffix,
+        )
+      ],
     );
   }
 }
