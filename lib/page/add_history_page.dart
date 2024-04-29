@@ -66,7 +66,6 @@ class _AddHistoryPageState extends State<AddHistoryPage> {
             size: 17,
           ),
           onPressed: () => context.pop(),
-          // padding: EdgeInsets.only(left: 0),
         ),
       ),
       body: Stack(
