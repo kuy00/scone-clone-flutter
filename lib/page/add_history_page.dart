@@ -90,6 +90,7 @@ class _AddHistoryPageState extends State<AddHistoryPage> {
                 alignment: Alignment.bottomCenter,
                 child: Offstage(
                   offstage: !_isEmojiPickerVisible,
+                  // TODO : 이미지 피커 스타일 수정
                   child: EmojiPicker(
                     onEmojiSelected: (category, emoji) => setState(() {
                       _emoji = emoji.emoji.toString();
