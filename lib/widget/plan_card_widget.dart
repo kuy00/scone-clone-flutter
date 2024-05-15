@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/enums/plan_type.dart';
 import 'package:flutter_study/widget/free_type_circular_indicator.dart';
 import 'package:flutter_study/widget/plan_type_circular_indicator.dart';
 import 'package:go_router/go_router.dart';

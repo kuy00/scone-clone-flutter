@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/enums/plan_history_type.dart';
+import 'package:flutter_study/enums/plan_type.dart';
 
 class PlanListViewModel extends ChangeNotifier {
   final pageController = PageController(initialPage: 0);

@@ -1,4 +1,6 @@
 import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/enums/plan_history_type.dart';
+import 'package:flutter_study/enums/plan_type.dart';
 
 class PlanEntity {
   int id; // 아이디
@@ -35,9 +37,4 @@ class PlanEntity {
           element.type == PlanHistoryType.income ? sum + element.amount : 0);
 
   int get remainAmount => totalAmount - totalConsumption;
-}
-
-enum PlanType {
-  plan,
-  free,
 }

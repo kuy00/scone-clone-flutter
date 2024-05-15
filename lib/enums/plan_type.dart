@@ -1,0 +1,4 @@
+enum PlanType {
+  plan,
+  free,
+}

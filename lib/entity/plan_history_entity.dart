@@ -1,3 +1,5 @@
+import 'package:flutter_study/enums/plan_history_type.dart';
+
 class PlanHistoryEntity {
   int id; // 아이디
   PlanHistoryType type;
@@ -11,9 +13,4 @@ class PlanHistoryEntity {
       required this.amount,
       required this.memo,
       required this.createAt});
-}
-
-enum PlanHistoryType {
-  consumption, // 소비
-  income, // 소득
 }

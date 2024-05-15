@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/enums/plan_type.dart';
 import 'package:flutter_study/utils/number_util.dart';
 
 class ConsumptionByPlanWidget extends StatelessWidget {
