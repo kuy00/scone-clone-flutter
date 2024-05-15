@@ -1,0 +1,4 @@
+enum DatePickerSelectMode {
+  normal,
+  range,
+}

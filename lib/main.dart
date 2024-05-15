@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/routes.dart';
+import 'package:jiffy/jiffy.dart';
 
-void main() {
+void main() async {
+  await Jiffy.setLocale('ko');
   runApp(const MyApp());
 }
 
