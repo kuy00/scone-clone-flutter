@@ -34,7 +34,7 @@ class PlanListViewModel extends ChangeNotifier {
         id: 1,
         type: PlanType.plan,
         startDate: DateTime(2024, 4, 1),
-        endDate: DateTime(2024, 4, 28),
+        endDate: DateTime(2024, 5, 30),
         memo: "",
         name: "계획1",
         icon: "😍",
