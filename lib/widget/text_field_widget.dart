@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
-  final String? hintText;
-  final TextStyle? hintStyle;
+  final InputDecoration? inputDecoration;
   final Widget? prefix;
   final Widget? suffix;
   final List<TextInputFormatter>? inputFormatters;
@@ -18,8 +17,7 @@ class TextFieldWidget extends StatelessWidget {
     super.key,
     this.controller,
     this.onChanged,
-    this.hintText,
-    this.hintStyle,
+    this.inputDecoration,
     this.prefix,
     this.suffix,
     this.inputFormatters,
@@ -37,20 +35,17 @@ class TextFieldWidget extends StatelessWidget {
           child: prefix,
         ),
         Expanded(
-            child: TextField(
-          controller: controller,
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: hintStyle,
-            border: InputBorder.none,
+          child: TextField(
+            controller: controller,
+            onChanged: onChanged,
+            decoration: inputDecoration,
+            inputFormatters: inputFormatters,
+            keyboardType: keyboardType ?? TextInputType.text,
+            onTap: onTap,
+            onTapOutside: onTapOutside,
+            readOnly: readOnly ?? false,
           ),
-          inputFormatters: inputFormatters,
-          keyboardType: keyboardType ?? TextInputType.text,
-          onTap: onTap,
-          onTapOutside: onTapOutside,
-          readOnly: readOnly ?? false,
-        )),
+        ),
         Container(
           child: suffix,
         )

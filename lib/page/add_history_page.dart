@@ -100,55 +100,42 @@ class AddHistoryPage extends StatelessWidget {
                                 controller: context
                                     .read<AddHistoryViewModel>()
                                     .priceTextController,
-                                hintText: context
-                                        .watch<AddHistoryViewModel>()
-                                        .isConsumption
-                                    ? '소비 금액'
-                                    : '수입 금액',
-                                hintStyle:
-                                    const TextStyle(color: Color(0xFFBEBEBE)),
-                                suffix: context
-                                        .watch<AddHistoryViewModel>()
-                                        .isPriceFieldDeleteIconVisible
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<AddHistoryViewModel>()
-                                                  .priceTextController
-                                                  .clear();
-                                              context
-                                                  .read<AddHistoryViewModel>()
-                                                  .setPriceFieldDeleteIconVisible();
-                                            },
-                                            child: const Icon(
-                                              Icons.cancel,
-                                              color: Color(0xFFC4C4C4),
-                                              size: 20,
-                                            ),
+                                inputDecoration: InputDecoration(
+                                  hintText: context
+                                          .watch<AddHistoryViewModel>()
+                                          .isConsumption
+                                      ? '소비 금액'
+                                      : '수입 금액',
+                                  hintStyle:
+                                      const TextStyle(color: Color(0xFFBEBEBE)),
+                                  border: InputBorder.none,
+                                  suffix: context
+                                          .watch<AddHistoryViewModel>()
+                                          .isPriceFieldDeleteIconVisible
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<AddHistoryViewModel>()
+                                                .priceTextController
+                                                .clear();
+                                            context
+                                                .read<AddHistoryViewModel>()
+                                                .setPriceFieldDeleteIconVisible();
+                                          },
+                                          child: const Icon(
+                                            Icons.cancel,
+                                            color: Color(0xFFC4C4C4),
+                                            size: 20,
                                           ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          const Text(
-                                            '원',
-                                            style: TextStyle(
-                                              color: Color(0xFF828282),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : const Text(
-                                        '원',
-                                        style: TextStyle(
-                                          color: Color(0xFF828282),
-                                        ),
-                                      ),
+                                        )
+                                      : const SizedBox(),
+                                ),
+                                suffix: const Text(
+                                  '원',
+                                  style: TextStyle(
+                                    color: Color(0xFF828282),
+                                  ),
+                                ),
                                 inputFormatters: [
                                   CurrencyInputFormatter(),
                                 ],
@@ -170,8 +157,11 @@ class AddHistoryPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: TextFieldWidget(
-                        hintText: '내용',
-                        hintStyle: const TextStyle(color: Color(0xFFBEBEBE)),
+                        inputDecoration: const InputDecoration(
+                          hintText: '내용',
+                          hintStyle: TextStyle(color: Color(0xFFBEBEBE)),
+                          border: InputBorder.none,
+                        ),
                         onChanged: (value) => context
                             .read<AddHistoryViewModel>()
                             .setContentFieldDeleteIconVisible(),
