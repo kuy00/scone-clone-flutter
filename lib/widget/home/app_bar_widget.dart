@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/badge_widget.dart';
-import 'package:flutter_study/widget/plan_summary_widget.dart';
+import 'package:flutter_study/widget/home/plan_summary_widget.dart';
 import 'package:provider/provider.dart';
 
 class AppBarWidget extends AppBar {
