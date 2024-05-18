@@ -109,7 +109,7 @@ class AddHistoryPage extends StatelessWidget {
                                   hintStyle:
                                       const TextStyle(color: Color(0xFFBEBEBE)),
                                   border: InputBorder.none,
-                                  suffix: context
+                                  suffixIcon: context
                                           .watch<AddHistoryViewModel>()
                                           .isPriceFieldDeleteIconVisible
                                       ? GestureDetector(
@@ -128,7 +128,7 @@ class AddHistoryPage extends StatelessWidget {
                                             size: 20,
                                           ),
                                         )
-                                      : const SizedBox(),
+                                      : null,
                                 ),
                                 suffix: const Text(
                                   '원',
@@ -157,10 +157,30 @@ class AddHistoryPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: TextFieldWidget(
-                        inputDecoration: const InputDecoration(
+                        inputDecoration: InputDecoration(
                           hintText: '내용',
-                          hintStyle: TextStyle(color: Color(0xFFBEBEBE)),
+                          hintStyle: const TextStyle(color: Color(0xFFBEBEBE)),
                           border: InputBorder.none,
+                          suffixIcon: context
+                                  .watch<AddHistoryViewModel>()
+                                  .isContentFieldDeleteIconVisible
+                              ? GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<AddHistoryViewModel>()
+                                        .contentTextController
+                                        .clear();
+                                    context
+                                        .read<AddHistoryViewModel>()
+                                        .setContentFieldDeleteIconVisible();
+                                  },
+                                  child: const Icon(
+                                    Icons.cancel,
+                                    color: Color(0xFFC4C4C4),
+                                    size: 20,
+                                  ),
+                                )
+                              : null,
                         ),
                         onChanged: (value) => context
                             .read<AddHistoryViewModel>()
@@ -178,26 +198,6 @@ class AddHistoryPage extends StatelessWidget {
                                 context.watch<AddHistoryViewModel>().emoji),
                           ),
                         ),
-                        suffix: context
-                                .watch<AddHistoryViewModel>()
-                                .isContentFieldDeleteIconVisible
-                            ? GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<AddHistoryViewModel>()
-                                      .contentTextController
-                                      .clear();
-                                  context
-                                      .read<AddHistoryViewModel>()
-                                      .setContentFieldDeleteIconVisible();
-                                },
-                                child: const Icon(
-                                  Icons.cancel,
-                                  color: Color(0xFFC4C4C4),
-                                  size: 20,
-                                ),
-                              )
-                            : null,
                       ),
                     ),
                     const SizedBox(
