@@ -3,18 +3,20 @@ import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class DatePickerViewModel extends ChangeNotifier {
-  final DateTime? initSelectDate;
+  final DateTime firstDay;
+  final DateTime lastDay;
+  DateTime initSelectDate;
   final Function? onSelected;
-  late DateTime _currentDate;
   final List<String> _header = ['일', '월', '화', '수', '목', '금', '토'];
-  final DateTime _today = DateTime.now();
   final ItemScrollController _scrollController = ItemScrollController();
 
-  DatePickerViewModel({this.initSelectDate, this.onSelected}) {
-    _currentDate = initSelectDate ?? _today;
-  }
+  DatePickerViewModel(
+      {required this.firstDay,
+      required this.lastDay,
+      DateTime? initSelectDate,
+      this.onSelected})
+      : initSelectDate = initSelectDate ?? DateTime.now();
 
-  DateTime get currentDate => _currentDate;
   List<String> get header => _header;
   ItemScrollController get scrollController => _scrollController;
 
@@ -44,10 +46,5 @@ class DatePickerViewModel extends ChangeNotifier {
     }
 
     return month;
-  }
-
-  void setCurrentDate(DateTime date) {
-    _currentDate = date;
-    notifyListeners();
   }
 }
