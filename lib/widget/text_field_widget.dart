@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
+  final FocusNode? focusNode;
   final ValueChanged<String>? onChanged;
   final InputDecoration? inputDecoration;
   final Widget? prefix;
@@ -16,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({
     super.key,
     this.controller,
+    this.focusNode,
     this.onChanged,
     this.inputDecoration,
     this.prefix,
@@ -37,6 +39,7 @@ class TextFieldWidget extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: controller,
+            focusNode: focusNode,
             onChanged: onChanged,
             decoration: inputDecoration,
             inputFormatters: inputFormatters,

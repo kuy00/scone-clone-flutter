@@ -9,38 +9,63 @@ class AddHistoryViewModel extends ChangeNotifier {
   late PlanEntity plan;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _contentTextController = TextEditingController();
+  final FocusNode _priceTextFieldFocusNode = FocusNode();
+  final FocusNode _contentTextFieldFocusNode = FocusNode();
   String _emoji = '😀';
-  bool _isEmojiPickerVisible = false;
   DateTime _date = DateTime.now();
   bool _isConsumption = true;
   bool _isPriceFieldDeleteIconVisible = false;
   bool _isContentFieldDeleteIconVisible = false;
 
   AddHistoryViewModel(this.planId) {
+    _priceTextController.addListener(() => _onTextFieldChanged('price'));
+    _contentTextController.addListener(() => _onTextFieldChanged('content'));
+
+    _priceTextFieldFocusNode.addListener(_onFocusChanged);
+    _contentTextFieldFocusNode.addListener(_onFocusChanged);
+
     getPlan();
   }
 
-  TextEditingController get priceTextController => _priceTextController;
-  TextEditingController get contentTextController => _contentTextController;
-  bool get isEmojiPickerVisible => _isEmojiPickerVisible;
-  String get emoji => _emoji;
-  DateTime get date => _date;
-  bool get isConsumption => _isConsumption;
-  bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
-  bool get isContentFieldDeleteIconVisible => _isContentFieldDeleteIconVisible;
+  void _onTextFieldChanged(String key) {
+    if (key == 'price') {
+      _isPriceFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
+    } else if (key == 'content') {
+      _isContentFieldDeleteIconVisible = _contentTextController.text.isNotEmpty;
+    }
+
+    notifyListeners();
+  }
+
+  void _onFocusChanged() {
+    if (_priceTextFieldFocusNode.hasFocus) {
+      _isContentFieldDeleteIconVisible = false;
+      _isPriceFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
+    } else if (_contentTextFieldFocusNode.hasFocus) {
+      _isPriceFieldDeleteIconVisible = false;
+      _isContentFieldDeleteIconVisible = _contentTextController.text.isNotEmpty;
+    }
+
+    notifyListeners();
+  }
 
   void getPlan() {
     // TODO : API 호출하여 상세 데이터 조회
     plan = PlanListViewModel().plans[0];
   }
 
+  TextEditingController get priceTextController => _priceTextController;
+  TextEditingController get contentTextController => _contentTextController;
+  FocusNode get priceTextFieldFocusNode => _priceTextFieldFocusNode;
+  FocusNode get contentTextFieldFocusNode => _contentTextFieldFocusNode;
+  String get emoji => _emoji;
+  DateTime get date => _date;
+  bool get isConsumption => _isConsumption;
+  bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
+  bool get isContentFieldDeleteIconVisible => _isContentFieldDeleteIconVisible;
+
   void setEmoji(String emoji) {
     _emoji = emoji;
-    notifyListeners();
-  }
-
-  void setEmojiPickerVisible() {
-    _isEmojiPickerVisible = !_isEmojiPickerVisible;
     notifyListeners();
   }
 
