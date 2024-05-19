@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/enums/date_picker_select_mode.dart';
 import 'package:flutter_study/utils/datetime_util.dart';
-import 'package:flutter_study/view_model/date_picker_date_cell_view_model.dart';
 import 'package:flutter_study/view_model/date_picker_view_model.dart';
 import 'package:flutter_study/widget/date_picker/calendar_page_widget.dart';
 import 'package:jiffy/jiffy.dart';
@@ -31,20 +30,13 @@ class DatePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => DatePickerViewModel(
-            firstDay: firstDay,
-            lastDay: lastDay,
-            initSelectDate: initSelectDate,
-            onSelected: onSelected,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => DatePickerDateCellViewModel(),
-        ),
-      ],
+    return ChangeNotifierProvider(
+      create: (_) => DatePickerViewModel(
+        firstDay: firstDay,
+        lastDay: lastDay,
+        initSelectDate: initSelectDate,
+        onSelected: onSelected,
+      ),
       builder: (context, child) {
         return FractionallySizedBox(
           widthFactor: width,

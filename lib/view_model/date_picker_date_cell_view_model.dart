@@ -13,23 +13,3 @@ class DateCellViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-class DatePickerDateCellViewModel extends ChangeNotifier {
-  final List<DateCellViewModel> _selectedDateCellList = [];
-  final List<DateCellViewModel> _dateCellList = [];
-
-  List<DateCellViewModel> get dateCellList => _dateCellList;
-  List<DateCellViewModel> get selectedDateCellList => _selectedDateCellList;
-
-  void addDateCell(DateCellViewModel viewModel) {
-    _dateCellList.add(viewModel);
-  }
-
-  void changeDate(DateCellViewModel viewModel) {
-    _selectedDateCellList.map((e) => e.changeSelected()).toList();
-    _selectedDateCellList.clear();
-
-    viewModel.changeSelected();
-    _selectedDateCellList.add(viewModel);
-  }
-}

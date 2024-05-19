@@ -14,11 +14,11 @@ class CalendarDateCell extends StatelessWidget {
     return ChangeNotifierProvider<DateCellViewModel>(
       create: (_) {
         DateCellViewModel viewModel = DateCellViewModel(date: date);
-        context.read<DatePickerDateCellViewModel>().addDateCell(viewModel);
+        context.read<DatePickerViewModel>().addDateCell(viewModel);
 
         if (isSameDate(
             context.read<DatePickerViewModel>().initSelectDate, date)) {
-          context.read<DatePickerDateCellViewModel>().changeDate(viewModel);
+          context.read<DatePickerViewModel>().changeDate(viewModel);
         }
 
         return viewModel;
@@ -62,9 +62,8 @@ class CalendarDateCell extends StatelessWidget {
 
 void _onTap(BuildContext context, DateTime date) {
   context.read<DatePickerViewModel>().onSelected?.call(
-      context.read<DatePickerDateCellViewModel>().selectedDateCellList[0].date,
-      date);
+      context.read<DatePickerViewModel>().selectedDateCellList[0].date, date);
   context
-      .read<DatePickerDateCellViewModel>()
+      .read<DatePickerViewModel>()
       .changeDate(context.read<DateCellViewModel>());
 }
