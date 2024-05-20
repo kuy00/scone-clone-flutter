@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import '../entity/plan_entity.dart';
 
@@ -87,5 +89,17 @@ class AddHistoryViewModel extends ChangeNotifier {
   void setContentFieldDeleteIconVisible() {
     _isContentFieldDeleteIconVisible = _contentTextController.text.isNotEmpty;
     notifyListeners();
+  }
+
+  PlanHistoryEntity get toPlanHistoryEntity {
+    // TODO : API 소비하여 데이터 저장
+    return PlanHistoryEntity(
+        id: 999,
+        type: _isConsumption
+            ? PlanHistoryType.consumption
+            : PlanHistoryType.income,
+        amount: int.parse(_priceTextController.text.replaceAll(',', '')),
+        memo: _contentTextController.text,
+        createAt: DateTime.now());
   }
 }

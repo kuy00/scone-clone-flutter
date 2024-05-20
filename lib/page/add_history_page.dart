@@ -74,7 +74,8 @@ class AddHistoryPage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
               child: ElevatedButton(
-                onPressed: () => context.pop(),
+                onPressed: () => context.pop(
+                    context.read<AddHistoryViewModel>().toPlanHistoryEntity),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1773FC),
                   minimumSize: const Size(100, 45),

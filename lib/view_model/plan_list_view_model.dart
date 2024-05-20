@@ -157,4 +157,13 @@ class PlanListViewModel extends ChangeNotifier {
           sum + (plan.type == PlanType.plan ? plan.remainAmount : 0));
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
+
+  void addPlanHistory(int planId, PlanHistoryEntity planHistory) {
+    _plans.map((plan) {
+      if (plan.id == planId) {
+        plan.planHistory.add(planHistory);
+      }
+    }).toList();
+    notifyListeners();
+  }
 }
