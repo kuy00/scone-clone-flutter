@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/model/plan.dart';
+import 'package:flutter_study/model/plan_history.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/home/free_type_circular_indicator.dart';
@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class PlanCardWidget extends StatelessWidget {
-  final PlanEntity plan;
+  final Plan plan;
   const PlanCardWidget({super.key, required this.plan});
 
   @override
@@ -85,7 +85,7 @@ class PlanCardWidget extends StatelessWidget {
                       onPressed: () => context
                           .push('/plan/${plan.id}/addHistory')
                           .then((value) {
-                        if (value is PlanHistoryEntity) {
+                        if (value is PlanHistory) {
                           context
                               .read<PlanListViewModel>()
                               .addPlanHistory(plan.id, value);

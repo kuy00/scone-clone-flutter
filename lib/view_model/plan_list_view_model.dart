@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/model/plan.dart';
+import 'package:flutter_study/model/plan_history.dart';
 import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
 class PlanListViewModel extends ChangeNotifier {
   final pageController = PageController(initialPage: 0);
-  final List<PlanEntity> _plans = [
-    PlanEntity(
+  final List<Plan> _plans = [
+    Plan(
         id: 0,
         type: PlanType.free,
         startDate: DateTime(2024, 4, 21),
@@ -16,14 +16,14 @@ class PlanListViewModel extends ChangeNotifier {
         name: "자유1",
         icon: "😀",
         planHistory: [
-          PlanHistoryEntity(
+          PlanHistory(
             id: 0,
             type: PlanHistoryType.consumption,
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
-          PlanHistoryEntity(
+          PlanHistory(
             id: 1,
             type: PlanHistoryType.consumption,
             memo: "메모2",
@@ -32,7 +32,7 @@ class PlanListViewModel extends ChangeNotifier {
           )
         ],
         totalAmount: 0),
-    PlanEntity(
+    Plan(
         id: 1,
         type: PlanType.plan,
         startDate: DateTime(2024, 4, 1),
@@ -41,14 +41,14 @@ class PlanListViewModel extends ChangeNotifier {
         name: "계획1",
         icon: "😍",
         planHistory: [
-          PlanHistoryEntity(
+          PlanHistory(
             id: 0,
             type: PlanHistoryType.consumption,
             memo: "메모1",
             createAt: DateTime.now(),
             amount: 100,
           ),
-          PlanHistoryEntity(
+          PlanHistory(
             id: 1,
             type: PlanHistoryType.consumption,
             memo: "메모2",
@@ -57,7 +57,7 @@ class PlanListViewModel extends ChangeNotifier {
           )
         ],
         totalAmount: 1000),
-    PlanEntity(
+    Plan(
       id: 2,
       type: PlanType.free,
       startDate: DateTime(2024, 4, 1),
@@ -66,7 +66,7 @@ class PlanListViewModel extends ChangeNotifier {
       name: "자유2",
       icon: "😁",
       planHistory: [
-        PlanHistoryEntity(
+        PlanHistory(
           id: 0,
           type: PlanHistoryType.income,
           memo: '급여',
@@ -76,7 +76,7 @@ class PlanListViewModel extends ChangeNotifier {
       ],
       totalAmount: 0,
     ),
-    PlanEntity(
+    Plan(
       id: 3,
       type: PlanType.plan,
       startDate: DateTime(2024, 4, 1),
@@ -87,7 +87,7 @@ class PlanListViewModel extends ChangeNotifier {
       planHistory: [],
       totalAmount: 1000,
     ),
-    PlanEntity(
+    Plan(
       id: 4,
       type: PlanType.free,
       startDate: DateTime(2024, 4, 1),
@@ -98,7 +98,7 @@ class PlanListViewModel extends ChangeNotifier {
       planHistory: [],
       totalAmount: 0,
     ),
-    PlanEntity(
+    Plan(
         id: 5,
         type: PlanType.free,
         startDate: DateTime(2024, 4, 21),
@@ -107,7 +107,7 @@ class PlanListViewModel extends ChangeNotifier {
         name: "자유4",
         icon: "😀",
         planHistory: [
-          PlanHistoryEntity(
+          PlanHistory(
             id: 0,
             type: PlanHistoryType.consumption,
             memo: "메모1",
@@ -116,7 +116,7 @@ class PlanListViewModel extends ChangeNotifier {
           ),
         ],
         totalAmount: 0),
-    PlanEntity(
+    Plan(
         id: 6,
         type: PlanType.plan,
         startDate: DateTime(2024, 4, 21),
@@ -125,7 +125,7 @@ class PlanListViewModel extends ChangeNotifier {
         name: "계획3",
         icon: "😀",
         planHistory: [
-          PlanHistoryEntity(
+          PlanHistory(
             id: 0,
             type: PlanHistoryType.consumption,
             memo: "메모1",
@@ -138,7 +138,7 @@ class PlanListViewModel extends ChangeNotifier {
   int _currentPage = 0;
 
   // getter
-  List<PlanEntity> get plans => _plans;
+  List<Plan> get plans => _plans;
   int get currentPage => _currentPage;
 
   void changePage(int currentPage) {
@@ -158,7 +158,7 @@ class PlanListViewModel extends ChangeNotifier {
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 
-  void addPlanHistory(int planId, PlanHistoryEntity planHistory) {
+  void addPlanHistory(int planId, PlanHistory planHistory) {
     _plans.map((plan) {
       if (plan.id == planId) {
         plan.planHistory.add(planHistory);

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/model/plan.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 import 'package:flutter_study/utils/number_util.dart';
 
 class ConsumptionByPlanWidget extends StatelessWidget {
-  final PlanEntity plan;
+  final Plan plan;
   const ConsumptionByPlanWidget({super.key, required this.plan});
 
   @override

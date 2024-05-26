@@ -1,8 +1,8 @@
-import 'package:flutter_study/entity/plan_history_entity.dart';
+import 'package:flutter_study/model/plan_history.dart';
 import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
-class PlanEntity {
+class Plan {
   int id; // 아이디
   DateTime startDate; // 시작일
   DateTime endDate; // 종료일
@@ -10,10 +10,10 @@ class PlanEntity {
   String name; // 이름
   String memo; // 설명 (메모)
   String icon; // 아이콘
-  List<PlanHistoryEntity> planHistory; // 소비지출 기록 리스트
+  List<PlanHistory> planHistory; // 소비지출 기록 리스트
   int totalAmount; // 총 금액
 
-  PlanEntity({
+  Plan({
     required this.id,
     required this.startDate,
     required this.endDate,
