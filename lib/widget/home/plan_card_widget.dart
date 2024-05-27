@@ -88,7 +88,7 @@ class PlanCardWidget extends StatelessWidget {
                         if (value is PlanHistory) {
                           context
                               .read<PlanListViewModel>()
-                              .addPlanHistory(plan.id, value);
+                              .addPlanHistory(plan.id!, value);
                         }
                       }),
                       style: ButtonStyle(

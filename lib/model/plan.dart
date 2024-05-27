@@ -3,7 +3,7 @@ import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
 class Plan {
-  int id; // 아이디
+  int? id; // 아이디
   DateTime startDate; // 시작일
   DateTime endDate; // 종료일
   PlanType type; // 타입 (계획 / 자유)
@@ -14,7 +14,7 @@ class Plan {
   int totalAmount; // 총 금액
 
   Plan({
-    required this.id,
+    this.id,
     required this.startDate,
     required this.endDate,
     required this.type,

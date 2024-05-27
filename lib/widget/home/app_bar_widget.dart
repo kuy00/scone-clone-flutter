@@ -34,7 +34,8 @@ class AppBarWidget extends AppBar {
             ),
             actions: <Widget>[
               IconButton(
-                  onPressed: () => print('plus button clicked'),
+                  // TODO : 추후에 등록 UI 추가 시 수정
+                  onPressed: () => context.read<PlanListViewModel>().addPlan(),
                   icon: const Icon(Icons.add)),
               IconButton(
                   onPressed: () => print('more button clicked'),

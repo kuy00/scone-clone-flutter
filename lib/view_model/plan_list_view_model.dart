@@ -1,141 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/database/database.dart';
+import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/model/plan.dart';
 import 'package:flutter_study/model/plan_history.dart';
-import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
 class PlanListViewModel extends ChangeNotifier {
+  // TODO : 의존성 주입
+  final PlanRepository planRepository = PlanRepository(Database().planDao);
   final pageController = PageController(initialPage: 0);
-  final List<Plan> _plans = [
-    Plan(
-        id: 0,
-        type: PlanType.free,
-        startDate: DateTime(2024, 4, 21),
-        endDate: DateTime(2024, 5, 30),
-        memo: "",
-        name: "자유1",
-        icon: "😀",
-        planHistory: [
-          PlanHistory(
-            id: 0,
-            type: PlanHistoryType.consumption,
-            memo: "메모1",
-            createAt: DateTime.now(),
-            amount: 100,
-          ),
-          PlanHistory(
-            id: 1,
-            type: PlanHistoryType.consumption,
-            memo: "메모2",
-            createAt: DateTime.now(),
-            amount: 500,
-          )
-        ],
-        totalAmount: 0),
-    Plan(
-        id: 1,
-        type: PlanType.plan,
-        startDate: DateTime(2024, 4, 1),
-        endDate: DateTime(2024, 5, 30),
-        memo: "",
-        name: "계획1",
-        icon: "😍",
-        planHistory: [
-          PlanHistory(
-            id: 0,
-            type: PlanHistoryType.consumption,
-            memo: "메모1",
-            createAt: DateTime.now(),
-            amount: 100,
-          ),
-          PlanHistory(
-            id: 1,
-            type: PlanHistoryType.consumption,
-            memo: "메모2",
-            createAt: DateTime.now(),
-            amount: 200,
-          )
-        ],
-        totalAmount: 1000),
-    Plan(
-      id: 2,
-      type: PlanType.free,
-      startDate: DateTime(2024, 4, 1),
-      endDate: DateTime(2024, 5, 1),
-      memo: "자유2",
-      name: "자유2",
-      icon: "😁",
-      planHistory: [
-        PlanHistory(
-          id: 0,
-          type: PlanHistoryType.income,
-          memo: '급여',
-          createAt: DateTime.now(),
-          amount: 100000,
-        ),
-      ],
-      totalAmount: 0,
-    ),
-    Plan(
-      id: 3,
-      type: PlanType.plan,
-      startDate: DateTime(2024, 4, 1),
-      endDate: DateTime(2024, 5, 1),
-      memo: "계획2",
-      name: "계획2",
-      icon: "😁",
-      planHistory: [],
-      totalAmount: 1000,
-    ),
-    Plan(
-      id: 4,
-      type: PlanType.free,
-      startDate: DateTime(2024, 4, 1),
-      endDate: DateTime(2024, 5, 1),
-      memo: "자유3",
-      name: "자유3",
-      icon: "😁",
-      planHistory: [],
-      totalAmount: 0,
-    ),
-    Plan(
-        id: 5,
-        type: PlanType.free,
-        startDate: DateTime(2024, 4, 21),
-        endDate: DateTime(2024, 4, 23),
-        memo: "자유4",
-        name: "자유4",
-        icon: "😀",
-        planHistory: [
-          PlanHistory(
-            id: 0,
-            type: PlanHistoryType.consumption,
-            memo: "메모1",
-            createAt: DateTime.now(),
-            amount: 1000,
-          ),
-        ],
-        totalAmount: 0),
-    Plan(
-        id: 6,
-        type: PlanType.plan,
-        startDate: DateTime(2024, 4, 21),
-        endDate: DateTime(2024, 4, 23),
-        memo: "계획3",
-        name: "계획3",
-        icon: "😀",
-        planHistory: [
-          PlanHistory(
-            id: 0,
-            type: PlanHistoryType.consumption,
-            memo: "메모1",
-            createAt: DateTime.now(),
-            amount: 7000,
-          ),
-        ],
-        totalAmount: 10000),
-  ];
+  List<Plan> _plans = [];
   int _currentPage = 0;
+
+  PlanListViewModel() {
+    getPlans();
+  }
+
+  void getPlans() async {
+    _plans = await planRepository.getPlans();
+    notifyListeners();
+  }
+
+  void addPlan() async {
+    // TODO : 추후에 등록 UI 추가 시 수정
+    await PlanRepository(Database().planDao).createPlan(Plan(
+        startDate: DateTime.now(),
+        endDate: DateTime.now(),
+        type: PlanType.plan,
+        name: '계획1',
+        memo: 'memo',
+        icon: '😀',
+        planHistory: [],
+        totalAmount: 1000));
+    getPlans();
+  }
 
   // getter
   List<Plan> get plans => _plans;
