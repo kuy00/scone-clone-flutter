@@ -28,7 +28,7 @@ class FreeTypeCircularIndicator extends StatelessWidget {
             lineWidth:
                 context.watch<CircularIndicatorViewModel>().isPressed ? 4 : 1.5,
             backgroundWidth: 1.5,
-            percent: percent < 0 ? 0 : percent,
+            percent: percent < 0 || percent.isNaN ? 0 : percent,
             circularStrokeCap: CircularStrokeCap.round,
             backgroundColor: const Color(0xFFF2F2F2),
             progressColor: Colors.black,
@@ -48,8 +48,9 @@ class FreeTypeCircularIndicator extends StatelessWidget {
                         .read<CircularIndicatorViewModel>()
                         .setIsPressed(false),
                     child: Transform.rotate(
-                      angle:
-                          percent < 0 ? 0 : radians(-360 * percent).toDouble(),
+                      angle: percent < 0 || percent.isNaN
+                          ? 0
+                          : radians(-360 * percent).toDouble(),
                       child: SvgPicture.asset(
                         'assets/icons/timer.svg',
                         colorFilter: const ColorFilter.mode(
