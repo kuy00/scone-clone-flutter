@@ -1,4 +1,4 @@
-import 'package:flutter_study/enums/plan_type.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 
 class PlanDto {
   final int? id;

@@ -6,7 +6,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../enums/plan_type.dart';
+import '../enum/plan_type.dart';
 import 'dto/plan_dto.dart';
 
 part 'database.g.dart';

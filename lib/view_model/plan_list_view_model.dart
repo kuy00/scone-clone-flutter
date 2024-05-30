@@ -3,7 +3,7 @@ import 'package:flutter_study/database/database.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
-import 'package:flutter_study/enums/plan_type.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 
 class PlanListViewModel extends ChangeNotifier {
   // TODO : 의존성 주입

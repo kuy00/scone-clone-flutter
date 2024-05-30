@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study/utils/number_util.dart';
+import 'package:flutter_study/util/number_util.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/home/consumption_by_plan_widget.dart';
 import 'package:provider/provider.dart';

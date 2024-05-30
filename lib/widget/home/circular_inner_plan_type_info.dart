@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/utils/number_util.dart';
+import 'package:flutter_study/util/number_util.dart';
 
 class CircularInnerPlanTypeInfo extends StatelessWidget {
   final int remainAmount;

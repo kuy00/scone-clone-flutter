@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/utils/text_input_formatter.dart';
+import 'package:flutter_study/util/text_input_formatter.dart';
 import 'package:flutter_study/view_model/add_history_view_model.dart';
 import 'package:flutter_study/widget/text_field_widget.dart';
 import 'package:provider/provider.dart';

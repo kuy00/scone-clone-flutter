@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
-import 'package:flutter_study/utils/datetime_util.dart';
+import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/circular_indicator_view_model.dart';
 import 'package:flutter_study/widget/home/circular_inner_plan_type_info.dart';
 import 'package:flutter_study/widget/home/circular_inner_remaining_time.dart';

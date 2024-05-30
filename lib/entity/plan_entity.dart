@@ -1,6 +1,6 @@
 import 'package:flutter_study/entity/plan_history_entity.dart';
-import 'package:flutter_study/enums/plan_history_type.dart';
-import 'package:flutter_study/enums/plan_type.dart';
+import 'package:flutter_study/enum/plan_history_type.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 
 class PlanEntity {
   int? id; // 아이디

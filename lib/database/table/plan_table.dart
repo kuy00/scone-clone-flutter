@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_study/database/dto/plan_dto.dart';
-import 'package:flutter_study/enums/plan_type.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 
 @UseRowClass(PlanDto)
 class Plans extends Table {

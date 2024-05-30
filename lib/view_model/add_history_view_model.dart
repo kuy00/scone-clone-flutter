@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
-import 'package:flutter_study/enums/plan_history_type.dart';
+import 'package:flutter_study/enum/plan_history_type.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/utils/datetime_util.dart';
+import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/date_picker_date_cell_view_model.dart';
 import 'package:flutter_study/view_model/date_picker_view_model.dart';
 import 'package:provider/provider.dart';
