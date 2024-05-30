@@ -12,11 +12,7 @@ class PlanListViewModel extends ChangeNotifier {
   List<PlanEntity> _plans = [];
   int _currentPage = 0;
 
-  PlanListViewModel() {
-    getPlans();
-  }
-
-  void getPlans() async {
+  void getPlan() async {
     _plans = await planRepository.getPlans();
     notifyListeners();
   }
@@ -32,7 +28,7 @@ class PlanListViewModel extends ChangeNotifier {
         icon: '😀',
         planHistory: [],
         totalAmount: 1000));
-    getPlans();
+    getPlan();
   }
 
   // getter

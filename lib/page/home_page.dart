@@ -10,7 +10,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<PlanListViewModel>(
-      create: (_) => PlanListViewModel(),
+      create: (_) {
+        PlanListViewModel planListViewModel = PlanListViewModel();
+        planListViewModel.getPlan();
+        return planListViewModel;
+      },
       builder: (context, child) {
         return Scaffold(
             appBar: AppBarWidget(context),
