@@ -37,7 +37,7 @@ class Database extends _$Database {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, '../databases/db.sqlite'));
+    final file = File(p.join(dbFolder.path, 'sqlite.db'));
     return NativeDatabase(file);
   });
 }
