@@ -7,7 +7,7 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../enums/plan_type.dart';
-import 'entity/plan_entity.dart';
+import 'dto/plan_dto.dart';
 
 part 'database.g.dart';
 

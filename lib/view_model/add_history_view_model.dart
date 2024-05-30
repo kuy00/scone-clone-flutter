@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_study/model/plan_history.dart';
+import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enums/plan_history_type.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
-import '../model/plan.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {
   final String planId;
-  late Plan plan;
+  late PlanEntity plan;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _contentTextController = TextEditingController();
   final FocusNode _priceTextFieldFocusNode = FocusNode();
@@ -91,9 +91,9 @@ class AddHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  PlanHistory get toPlanHistoryEntity {
+  PlanHistoryEntity get toPlanHistoryEntity {
     // TODO : API 소비하여 데이터 저장
-    return PlanHistory(
+    return PlanHistoryEntity(
         id: 999,
         type: _isConsumption
             ? PlanHistoryType.consumption

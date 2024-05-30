@@ -1,6 +1,6 @@
 import 'package:flutter_study/enums/plan_type.dart';
 
-class PlanEntity {
+class PlanDto {
   final int? id;
   final DateTime startDate;
   final DateTime endDate;
@@ -13,7 +13,7 @@ class PlanEntity {
   final DateTime? updatedAt;
   final DateTime? deletedAt;
 
-  const PlanEntity(
+  const PlanDto(
       {this.id,
       required this.startDate,
       required this.endDate,

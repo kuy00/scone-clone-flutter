@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/database/database.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
-import 'package:flutter_study/model/plan.dart';
-import 'package:flutter_study/model/plan_history.dart';
+import 'package:flutter_study/entity/plan_entity.dart';
+import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
 class PlanListViewModel extends ChangeNotifier {
   // TODO : 의존성 주입
   final PlanRepository planRepository = PlanRepository(Database().planDao);
   final pageController = PageController(initialPage: 0);
-  List<Plan> _plans = [];
+  List<PlanEntity> _plans = [];
   int _currentPage = 0;
 
   PlanListViewModel() {
@@ -23,7 +23,7 @@ class PlanListViewModel extends ChangeNotifier {
 
   void addPlan() async {
     // TODO : 추후에 등록 UI 추가 시 수정
-    await PlanRepository(Database().planDao).createPlan(Plan(
+    await PlanRepository(Database().planDao).createPlan(PlanEntity(
         startDate: DateTime.now(),
         endDate: DateTime.now(),
         type: PlanType.plan,
@@ -36,7 +36,7 @@ class PlanListViewModel extends ChangeNotifier {
   }
 
   // getter
-  List<Plan> get plans => _plans;
+  List<PlanEntity> get plans => _plans;
   int get currentPage => _currentPage;
 
   void changePage(int currentPage) {
@@ -56,7 +56,7 @@ class PlanListViewModel extends ChangeNotifier {
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 
-  void addPlanHistory(int planId, PlanHistory planHistory) {
+  void addPlanHistory(int planId, PlanHistoryEntity planHistory) {
     _plans.map((plan) {
       if (plan.id == planId) {
         plan.planHistory.add(planHistory);

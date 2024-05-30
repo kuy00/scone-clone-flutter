@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/model/plan.dart';
+import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/utils/datetime_util.dart';
 import 'package:flutter_study/view_model/circular_indicator_view_model.dart';
 import 'package:flutter_study/widget/home/circular_inner_free_type_info.dart';
@@ -10,7 +10,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class FreeTypeCircularIndicator extends StatelessWidget {
-  final Plan plan;
+  final PlanEntity plan;
 
   const FreeTypeCircularIndicator({super.key, required this.plan});
 

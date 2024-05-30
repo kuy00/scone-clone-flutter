@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_study/database/database.dart';
-import 'package:flutter_study/database/entity/plan_entity.dart';
+import 'package:flutter_study/database/dto/plan_dto.dart';
 import 'package:flutter_study/database/table/plan_table.dart';
 
 part 'plan_dao.g.dart';
@@ -9,8 +9,8 @@ part 'plan_dao.g.dart';
 class PlanDao extends DatabaseAccessor<Database> with _$PlanDaoMixin {
   PlanDao(super.db);
 
-  Future<List<PlanEntity>> getAll() => db.select(plans).get();
-  Future<void> create(PlanEntity plan) async {
+  Future<List<PlanDto>> getAll() => db.select(plans).get();
+  Future<void> create(PlanDto plan) async {
     into(plans).insert(PlansCompanion(
       startDate: Value(plan.startDate),
       endDate: Value(plan.endDate),

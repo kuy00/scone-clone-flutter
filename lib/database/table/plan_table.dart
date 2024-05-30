@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
-import 'package:flutter_study/database/entity/plan_entity.dart';
+import 'package:flutter_study/database/dto/plan_dto.dart';
 import 'package:flutter_study/enums/plan_type.dart';
 
-@UseRowClass(PlanEntity)
+@UseRowClass(PlanDto)
 class Plans extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get startDate => dateTime()();
