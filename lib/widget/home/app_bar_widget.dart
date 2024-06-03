@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/badge_widget.dart';
 import 'package:flutter_study/widget/home/plan_summary_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AppBarWidget extends AppBar {
@@ -34,8 +35,7 @@ class AppBarWidget extends AppBar {
             ),
             actions: <Widget>[
               IconButton(
-                  // TODO : 추후에 등록 UI 추가 시 수정
-                  onPressed: () => context.read<PlanListViewModel>().addPlan(),
+                  onPressed: () => context.push('/addPlan'),
                   icon: const Icon(Icons.add)),
               IconButton(
                   onPressed: () => print('more button clicked'),

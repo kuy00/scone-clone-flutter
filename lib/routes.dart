@@ -19,6 +19,13 @@ final GoRouter routes = GoRouter(
             ),
           ),
         ),
+        GoRoute(
+          path: 'addPlan',
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const CupertinoPage(
+            child: AddPlanPage(),
+          ),
+        ),
       ],
     ),
   ],
