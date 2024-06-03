@@ -19,7 +19,7 @@ class AppBarWidget extends AppBar {
                 height: 2,
               ),
               Text(
-                  '${context.read<AddHistoryViewModel>().plan.icon} ${context.read<AddHistoryViewModel>().plan.name}',
+                  '${context.watch<AddHistoryViewModel>().plan.icon} ${context.watch<AddHistoryViewModel>().plan.name}',
                   style: const TextStyle(fontSize: 10)),
             ],
           ),

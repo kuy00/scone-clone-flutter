@@ -4,6 +4,7 @@ import 'package:flutter_study/entity/plan_entity.dart';
 extension PlanDtoExtension on PlanDto {
   PlanEntity toEntity() {
     return PlanEntity(
+      id: id,
       startDate: startDate,
       endDate: endDate,
       type: type,

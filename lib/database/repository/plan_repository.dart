@@ -16,6 +16,11 @@ class PlanRepository {
     return plans.map((plan) => plan.toEntity()).toList();
   }
 
+  Future<PlanEntity> getPlan(int id) async {
+    PlanDto plan = await planDao.getById(id);
+    return plan.toEntity();
+  }
+
   Future<void> createPlan(PlanEntity plan) async {
     await planDao.create(plan.toDto());
   }

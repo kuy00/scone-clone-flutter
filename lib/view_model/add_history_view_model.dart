@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_study/database/database.dart';
+import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enum/plan_history_type.dart';
-import 'package:flutter_study/view_model/plan_list_view_model.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {
-  final String planId;
+  final PlanRepository planRepository = PlanRepository(Database().planDao);
+
+  final int planId;
   late PlanEntity plan;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _contentTextController = TextEditingController();
@@ -25,8 +28,6 @@ class AddHistoryViewModel extends ChangeNotifier {
 
     _priceTextFieldFocusNode.addListener(_onFocusChanged);
     _contentTextFieldFocusNode.addListener(_onFocusChanged);
-
-    getPlan();
   }
 
   void _onTextFieldChanged(String key) {
@@ -51,9 +52,10 @@ class AddHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getPlan() {
-    // TODO : API 호출하여 상세 데이터 조회
-    plan = PlanListViewModel().plans[0];
+  void getPlan() async {
+    // TODO : LateInitializationError: Field 'plan' has not been initialized. 오류 해결
+    plan = await planRepository.getPlan(planId);
+    notifyListeners();
   }
 
   TextEditingController get priceTextController => _priceTextController;

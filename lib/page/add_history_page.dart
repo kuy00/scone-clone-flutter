@@ -9,14 +9,18 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AddHistoryPage extends StatelessWidget {
-  final String planId;
+  final int planId;
 
   const AddHistoryPage({super.key, required this.planId});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AddHistoryViewModel(planId),
+      create: (_) {
+        AddHistoryViewModel viewModel = AddHistoryViewModel(planId);
+        viewModel.getPlan();
+        return viewModel;
+      },
       builder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,

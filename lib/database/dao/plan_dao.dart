@@ -10,6 +10,10 @@ class PlanDao extends DatabaseAccessor<Database> with _$PlanDaoMixin {
   PlanDao(super.db);
 
   Future<List<PlanDto>> getAll() => db.select(plans).get();
+
+  Future<PlanDto> getById(int id) =>
+      (db.select(plans)..where((t) => t.id.equals(id))).getSingle();
+
   Future<void> create(PlanDto plan) async {
     into(plans).insert(PlansCompanion(
       startDate: Value(plan.startDate),
