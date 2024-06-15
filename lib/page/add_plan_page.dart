@@ -11,7 +11,7 @@ class AddPlanPage extends StatelessWidget {
     Future.delayed(
         Duration.zero,
         () => Future.delayed(
-            const Duration(milliseconds: 1000), () => _bottomSheet(context)));
+            const Duration(milliseconds: 500), () => _bottomSheet(context)));
 
     return Scaffold(
       backgroundColor: Colors.white,
