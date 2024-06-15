@@ -8,9 +8,10 @@ class AddPlanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _bottomSheet(context),
-    );
+    Future.delayed(
+        Duration.zero,
+        () => Future.delayed(
+            const Duration(milliseconds: 1000), () => _bottomSheet(context)));
 
     return Scaffold(
       backgroundColor: Colors.white,
