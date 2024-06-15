@@ -84,7 +84,7 @@ class AddHistoryPage extends StatelessWidget {
                   backgroundColor: const Color(0xFF1773FC),
                   minimumSize: const Size(100, 45),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: const Text(
