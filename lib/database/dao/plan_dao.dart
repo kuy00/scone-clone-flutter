@@ -9,7 +9,11 @@ part 'plan_dao.g.dart';
 class PlanDao extends DatabaseAccessor<Database> with _$PlanDaoMixin {
   PlanDao(super.db);
 
-  Future<List<PlanDto>> getAll() => db.select(plans).get();
+  Future<List<PlanDto>> getAll() => (db.select(plans)
+        ..orderBy([
+          (t) => OrderingTerm(expression: t.createdAt, mode: OrderingMode.desc)
+        ]))
+      .get();
 
   Future<PlanDto> getById(int id) =>
       (db.select(plans)..where((t) => t.id.equals(id))).getSingle();
