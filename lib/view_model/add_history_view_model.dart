@@ -21,6 +21,7 @@ class AddHistoryViewModel extends ChangeNotifier {
   bool _isConsumption = true;
   bool _isPriceFieldDeleteIconVisible = false;
   bool _isContentFieldDeleteIconVisible = false;
+  bool _isPlanInitialized = false;
 
   AddHistoryViewModel(this.planId) {
     _priceTextController.addListener(() => _onTextFieldChanged('price'));
@@ -53,8 +54,8 @@ class AddHistoryViewModel extends ChangeNotifier {
   }
 
   void getPlan() async {
-    // TODO : LateInitializationError: Field 'plan' has not been initialized. 오류 해결
     plan = await planRepository.getPlan(planId);
+    _isPlanInitialized = true;
     notifyListeners();
   }
 
@@ -67,6 +68,7 @@ class AddHistoryViewModel extends ChangeNotifier {
   bool get isConsumption => _isConsumption;
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
   bool get isContentFieldDeleteIconVisible => _isContentFieldDeleteIconVisible;
+  bool get isPlanInitialized => _isPlanInitialized;
 
   void setEmoji(String emoji) {
     _emoji = emoji;

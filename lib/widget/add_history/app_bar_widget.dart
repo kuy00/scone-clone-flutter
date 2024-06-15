@@ -18,9 +18,10 @@ class AppBarWidget extends AppBar {
               const SizedBox(
                 height: 2,
               ),
-              Text(
-                  '${context.watch<AddHistoryViewModel>().plan.icon} ${context.watch<AddHistoryViewModel>().plan.name}',
-                  style: const TextStyle(fontSize: 10)),
+              if (context.watch<AddHistoryViewModel>().isPlanInitialized)
+                Text(
+                    '${context.read<AddHistoryViewModel>().plan.icon} ${context.read<AddHistoryViewModel>().plan.name}',
+                    style: const TextStyle(fontSize: 10)),
             ],
           ),
           leading: IconButton(
