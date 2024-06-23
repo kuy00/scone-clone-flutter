@@ -85,16 +85,6 @@ class AddHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPriceFieldDeleteIconVisible() {
-    _isPriceFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
-    notifyListeners();
-  }
-
-  void setContentFieldDeleteIconVisible() {
-    _isContentFieldDeleteIconVisible = _contentTextController.text.isNotEmpty;
-    notifyListeners();
-  }
-
   PlanHistoryEntity get toPlanHistoryEntity {
     // TODO : API 소비하여 데이터 저장
     return PlanHistoryEntity(
