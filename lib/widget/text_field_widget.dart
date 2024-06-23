@@ -6,6 +6,7 @@ class TextFieldWidget extends StatelessWidget {
   final FocusNode? focusNode;
   final ValueChanged<String>? onChanged;
   final InputDecoration? inputDecoration;
+  final TextStyle? textStyle;
   final Widget? prefix;
   final Widget? suffix;
   final List<TextInputFormatter>? inputFormatters;
@@ -20,6 +21,7 @@ class TextFieldWidget extends StatelessWidget {
     this.focusNode,
     this.onChanged,
     this.inputDecoration,
+    this.textStyle,
     this.prefix,
     this.suffix,
     this.inputFormatters,
@@ -42,6 +44,7 @@ class TextFieldWidget extends StatelessWidget {
             focusNode: focusNode,
             onChanged: onChanged,
             decoration: inputDecoration,
+            style: textStyle,
             inputFormatters: inputFormatters,
             keyboardType: keyboardType ?? TextInputType.text,
             onTap: onTap,
