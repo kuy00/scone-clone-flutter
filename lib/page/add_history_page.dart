@@ -24,7 +24,6 @@ class AddHistoryPage extends StatelessWidget {
       builder: (context, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
           appBar: AppBarWidget(context),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class AppBarWidget extends AppBar {
   AppBarWidget(BuildContext context, {super.key})
       : super(
-          backgroundColor: Colors.white,
           scrolledUnderElevation: 0,
           centerTitle: true,
           title: Column(

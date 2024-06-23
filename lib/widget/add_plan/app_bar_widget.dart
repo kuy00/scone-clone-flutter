@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 class AppBarWidget extends AppBar {
   AppBarWidget(BuildContext context, {super.key})
       : super(
-          backgroundColor: Colors.white,
           scrolledUnderElevation: 0,
           leading: IconButton(
             icon: const Icon(

@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, child) {
         return Scaffold(
+            backgroundColor: const Color(0xFFF3F3F3),
             appBar: AppBarWidget(context),
             body: Column(
               children: [
