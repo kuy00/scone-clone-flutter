@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
         ),
         bottomSheetTheme: const BottomSheetThemeData(
-          modalBackgroundColor: Colors.white,
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.transparent,
         ),
         useMaterial3: true,
       ),
