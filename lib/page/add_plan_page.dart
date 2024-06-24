@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/enum/date_picker_select_mode.dart';
 import 'package:flutter_study/view_model/add_plan_view_model.dart';
+import 'package:flutter_study/widget/add_plan/bottom_sheet_date_picker.dart';
 import 'package:flutter_study/widget/add_plan/date_select_field_widget.dart';
 import 'package:flutter_study/widget/add_plan/app_bar_widget.dart';
 import 'package:flutter_study/widget/add_plan/price_text_field_widget.dart';
-import 'package:flutter_study/widget/date_picker/date_picker_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +21,6 @@ class AddPlanPage extends StatelessWidget {
     // );
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBarWidget(context),
       body: ChangeNotifierProvider(
         create: (_) => AddPlanViewModel(),
@@ -51,7 +49,62 @@ class AddPlanPage extends StatelessWidget {
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
-                  )
+                  ),
+                Row(
+                  children: [
+                    Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                bottomLeft: Radius.circular(40))),
+                        child: Container(
+                          child: Text(
+                            '1',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                          ),
+                        )),
+                    Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(color: Colors.red),
+                        child: Container(
+                          child: Text('2'),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF2F2F2),
+                            shape: BoxShape.circle,
+                          ),
+                        )),
+                    Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Color(0xFF2F2F2),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(40),
+                                bottomRight: Radius.circular(40))),
+                        child: Container(
+                          child: Text(
+                            '1',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(color: Color(0xFF2F2F2))],
+                          ),
+                        )),
+                  ],
+                ),
               ],
             ),
           );
@@ -91,17 +144,7 @@ class AddPlanPage extends StatelessWidget {
       isScrollControlled: true,
       context: context,
       builder: (_) {
-        return DatePickerWidget(
-          width: 1,
-          height: 0.8,
-          mode: DatePickerSelectMode.normal,
-          firstDay: DateTime(DateTime.now().year - 1, 1, 1),
-          lastDay: DateTime(DateTime.now().year + 1, 12, 31),
-          header: const Text(
-            '날짜 선택',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-          ),
-        );
+        return const BottomSheetDatePicker();
       },
     );
   }

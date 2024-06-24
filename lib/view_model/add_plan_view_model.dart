@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class AddPlanViewModel extends ChangeNotifier {
-  List<DateTime>? _date;
+  DateTime? _startDate;
+  DateTime? _endDate;
   final TextEditingController _priceTextController = TextEditingController();
   String _displayPrice = '';
   bool _isPriceFieldDeleteIconVisible = false;
@@ -15,13 +16,19 @@ class AddPlanViewModel extends ChangeNotifier {
     _isPriceFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
   }
 
-  List<DateTime>? get date => _date;
+  DateTime? get startDate => _startDate;
+  DateTime? get endDate => _endDate;
   TextEditingController get priceTextController => _priceTextController;
   String? get displayPrice => _displayPrice;
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
 
-  void setDate(List<DateTime> date) {
-    _date = date;
+  void setStartDate(DateTime date) {
+    _startDate = date;
+    notifyListeners();
+  }
+
+  void setEndDate(DateTime date) {
+    _endDate = date;
     notifyListeners();
   }
 

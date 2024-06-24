@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/enum/date_picker_select_mode.dart';
-import 'package:flutter_study/widget/date_picker/date_picker_widget.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_study/view_model/add_plan_view_model.dart';
+import 'package:flutter_study/widget/add_plan/bottom_sheet_date_picker.dart';
+import 'package:provider/provider.dart';
 
 class DateSelectFieldWidget extends StatelessWidget {
   const DateSelectFieldWidget({super.key});
@@ -14,23 +14,10 @@ class DateSelectFieldWidget extends StatelessWidget {
           showDragHandle: false,
           isScrollControlled: true,
           context: context,
-          builder: (_) {
-            return DatePickerWidget(
-              width: 1,
-              height: 0.55,
-              mode: DatePickerSelectMode.normal,
-              firstDay: DateTime(DateTime.now().year - 1, 1, 1),
-              lastDay: DateTime(DateTime.now().year + 1, 12, 31),
-              header: const Text(
-                '플랜 기간',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              ),
-              onSelected: (oldDate, newDate) {
-                print(newDate);
-                context.pop();
-              },
-            );
-          },
+          builder: (_) => ChangeNotifierProvider<AddPlanViewModel>.value(
+            value: context.watch<AddPlanViewModel>(),
+            child: const BottomSheetDatePicker(),
+          ),
         );
       },
       child: Container(

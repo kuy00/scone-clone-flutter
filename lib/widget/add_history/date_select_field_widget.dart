@@ -24,13 +24,13 @@ class DateSelectFieldWidget extends StatelessWidget {
               mode: DatePickerSelectMode.normal,
               firstDay: DateTime(DateTime.now().year - 1, 1, 1),
               lastDay: DateTime(DateTime.now().year + 1, 12, 31),
-              header: const Text(
+              header: (_) => const Text(
                 '날짜 선택',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
               initSelectDate: context.watch<AddHistoryViewModel>().date,
-              onSelected: (oldDate, newDate) {
-                context.read<AddHistoryViewModel>().setDate(newDate);
+              onSelected: (selectedDate) {
+                context.read<AddHistoryViewModel>().setDate(selectedDate);
                 context.pop();
               },
             );
