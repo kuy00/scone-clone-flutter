@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/date_cell_status.dart';
 
 class DateCellViewModel extends ChangeNotifier {
   final DateTime date;
-  bool _isSelected = false;
+  DateCellStatus _status = DateCellStatus.none;
 
   DateCellViewModel({required this.date});
 
-  bool get isSelected => _isSelected;
+  DateCellStatus get status => _status;
 
-  void changeSelected() {
-    _isSelected = !_isSelected;
+  void reset() {
+    _status = DateCellStatus.none;
+    notifyListeners();
+  }
+
+  void changeStatus(DateCellStatus status) {
+    _status = status;
     notifyListeners();
   }
 }

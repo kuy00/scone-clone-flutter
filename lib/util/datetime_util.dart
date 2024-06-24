@@ -45,3 +45,12 @@ bool isSameDate(DateTime date, DateTime date2) {
   return Jiffy.parseFromDateTime(date)
       .isSame(Jiffy.parseFromDateTime(date2), unit: Unit.day);
 }
+
+bool isBetween(DateTime date, DateTime startDate, DateTime endDate) {
+  return Jiffy.parseFromDateTime(date).isBetween(
+      Jiffy.parseFromDateTime(startDate), Jiffy.parseFromDateTime(endDate));
+}
+
+bool isAfter(DateTime date, DateTime date2) {
+  return Jiffy.parseFromDateTime(date).isAfter(Jiffy.parseFromDateTime(date2));
+}

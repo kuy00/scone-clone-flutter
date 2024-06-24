@@ -1,40 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/date_cell_status.dart';
+import 'package:flutter_study/enum/date_picker_select_mode.dart';
+import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/date_picker_date_cell_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class DatePickerViewModel extends ChangeNotifier {
+  final DatePickerSelectMode mode;
   final DateTime firstDay;
   final DateTime lastDay;
-  DateTime initSelectDate;
+  final DateTime? initSelectDate;
   final Function? onSelected;
   final List<String> _header = ['일', '월', '화', '수', '목', '금', '토'];
+  final List<String>? dateRange;
   final ItemScrollController _scrollController = ItemScrollController();
   final List<DateCellViewModel> _selectedDateCellList = [];
   final List<DateCellViewModel> _dateCellList = [];
 
   DatePickerViewModel(
-      {required this.firstDay,
+      {required this.mode,
+      required this.firstDay,
       required this.lastDay,
-      DateTime? initSelectDate,
-      this.onSelected})
-      : initSelectDate = initSelectDate ?? DateTime.now();
+      this.initSelectDate,
+      this.onSelected,
+      this.dateRange});
 
   List<String> get header => _header;
   ItemScrollController get scrollController => _scrollController;
-  List<DateCellViewModel> get dateCellList => _dateCellList;
   List<DateCellViewModel> get selectedDateCellList => _selectedDateCellList;
 
   void addDateCell(DateCellViewModel viewModel) {
     _dateCellList.add(viewModel);
   }
 
-  void changeDate(DateCellViewModel viewModel) {
-    _selectedDateCellList.map((e) => e.changeSelected()).toList();
-    _selectedDateCellList.clear();
+  void selectedDate(DateCellViewModel viewModel) {
+    /* 
+      선택된 일자 초기화 기준
+      1. DatePicker 일반 선택 모드
+      2. DatePicker 범위 선택 모드, 선택된 날짜가 1개 초과
+      3. 기존 선택된 일자가 같은 일자가 아니면서, 기존 선택된 일자보다 이전 일자를 선택한 경우
+     */
+    if (mode == DatePickerSelectMode.normal ||
+        (mode == DatePickerSelectMode.range &&
+            _selectedDateCellList.length > 1) ||
+        (_selectedDateCellList.isNotEmpty &&
+            !isSameDate(viewModel.date, _selectedDateCellList[0].date) &&
+            isAfter(selectedDateCellList.first.date, viewModel.date))) {
+      _selectedDateCellList.map((e) => e.reset()).toList();
+      _selectedDateCellList.clear();
+    }
 
-    viewModel.changeSelected();
+    viewModel.changeStatus(DateCellStatus.selected);
     _selectedDateCellList.add(viewModel);
+
+    // DatePicker 범위 선택
+    if (mode == DatePickerSelectMode.range &&
+        _selectedDateCellList.length > 1) {
+      // Date Cell 상태 변경
+      _selectedDateCellList.first.changeStatus(DateCellStatus.startDate);
+      _selectedDateCellList.last.changeStatus(DateCellStatus.endDate);
+
+      int startCellIndex = _dateCellList.indexWhere(
+              (element) => element.date == _selectedDateCellList[0].date) +
+          1;
+      int endCellIndex = _dateCellList.indexWhere(
+          (element) => element.date == _selectedDateCellList[1].date);
+
+      // 선택된 일자 사이의 일자 추출
+      List<DateCellViewModel> includedDate = [];
+
+      for (int i = startCellIndex; i < endCellIndex; i++) {
+        _dateCellList[i].changeStatus(DateCellStatus.includeDate);
+        includedDate.add(_dateCellList[i]);
+      }
+
+      // 선택 일자 리스트에 추가
+      _selectedDateCellList.insertAll(1, includedDate);
+    }
+
+    notifyListeners();
   }
 
   List<List<DateTime?>> getMonth(DateTime date) {
