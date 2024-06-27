@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +19,10 @@ class AddHistoryViewModel extends ChangeNotifier {
   final TextEditingController _contentTextController = TextEditingController();
   final FocusNode _priceTextFieldFocusNode = FocusNode();
   final FocusNode _contentTextFieldFocusNode = FocusNode();
-  String _emoji = '😀';
+  String _emoji = defaultEmojiSet[2]
+      .emoji[Random().nextInt(defaultEmojiSet[2].emoji.length)]
+      .emoji
+      .toString();
   DateTime _date = DateTime.now();
   bool _isConsumption = true;
   bool _isPriceFieldDeleteIconVisible = false;
