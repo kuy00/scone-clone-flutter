@@ -11,6 +11,7 @@ class PlanListViewModel extends ChangeNotifier {
   final pageController = PageController(initialPage: 0);
   List<PlanEntity> _plans = [];
   int _currentPage = 0;
+  final int _maxVisibleDots = 5;
 
   void getPlan() async {
     _plans = await planRepository.getPlans();
@@ -34,6 +35,7 @@ class PlanListViewModel extends ChangeNotifier {
   // getter
   List<PlanEntity> get plans => _plans;
   int get currentPage => _currentPage;
+  int get maxVisibleDots => _maxVisibleDots;
 
   void changePage(int currentPage) {
     _currentPage = currentPage;
@@ -51,6 +53,18 @@ class PlanListViewModel extends ChangeNotifier {
           sum + (plan.type == PlanType.plan ? plan.remainAmount : 0));
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
+
+  int get dotsCount =>
+      ((plans.length - currentPage - 1) / maxVisibleDots).round() > 0
+          ? maxVisibleDots
+          : plans.length % maxVisibleDots;
+
+  int getDotsIndex(int index) {
+    return index +
+        (currentPage >= maxVisibleDots
+            ? maxVisibleDots * (currentPage / maxVisibleDots).floor()
+            : 0);
+  }
 
   void addPlanHistory(int planId, PlanHistoryEntity planHistory) {
     _plans.map((plan) {

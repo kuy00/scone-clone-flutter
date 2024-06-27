@@ -41,20 +41,24 @@ class HomePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List<Widget>.generate(
-                        context.watch<PlanListViewModel>().plans.length,
-                        (index) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: CircleAvatar(
-                                radius: 8,
-                                backgroundColor: context
-                                            .watch<PlanListViewModel>()
-                                            .currentPage ==
-                                        index
-                                    ? const Color(0xFF181818)
-                                    : Colors.grey,
-                              ),
-                            )),
+                      context.read<PlanListViewModel>().dotsCount,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: CircleAvatar(
+                            radius: 8,
+                            backgroundColor: context
+                                        .watch<PlanListViewModel>()
+                                        .currentPage ==
+                                    context
+                                        .read<PlanListViewModel>()
+                                        .getDotsIndex(index)
+                                ? const Color(0xFF181818)
+                                : Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
