@@ -60,4 +60,11 @@ class PlanListViewModel extends ChangeNotifier {
     }).toList();
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+
+    super.dispose();
+  }
 }

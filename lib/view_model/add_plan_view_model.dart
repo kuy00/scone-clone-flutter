@@ -36,4 +36,11 @@ class AddPlanViewModel extends ChangeNotifier {
     _displayPrice = price;
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    _priceTextController.dispose();
+
+    super.dispose();
+  }
 }

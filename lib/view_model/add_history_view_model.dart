@@ -96,4 +96,14 @@ class AddHistoryViewModel extends ChangeNotifier {
         memo: _contentTextController.text,
         createAt: DateTime.now());
   }
+
+  @override
+  void dispose() {
+    _priceTextController.dispose();
+    _contentTextController.dispose();
+    _priceTextFieldFocusNode.dispose();
+    _contentTextFieldFocusNode.dispose();
+
+    super.dispose();
+  }
 }
