@@ -50,61 +50,6 @@ class AddPlanPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                Row(
-                  children: [
-                    Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                bottomLeft: Radius.circular(40))),
-                        child: Container(
-                          child: Text(
-                            '1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                        )),
-                    Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(color: Colors.red),
-                        child: Container(
-                          child: Text('2'),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF2F2F2),
-                            shape: BoxShape.circle,
-                          ),
-                        )),
-                    Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Color(0xFF2F2F2),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(40),
-                                bottomRight: Radius.circular(40))),
-                        child: Container(
-                          child: Text(
-                            '1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(color: Color(0xFF2F2F2))],
-                          ),
-                        )),
-                  ],
-                ),
               ],
             ),
           );
