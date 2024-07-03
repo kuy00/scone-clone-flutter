@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study/enum/date_picker_select_mode.dart';
 import 'package:flutter_study/util/datetime_util.dart';
+import 'package:flutter_study/view_model/add_plan_view_model.dart';
 import 'package:flutter_study/view_model/date_picker_view_model.dart';
 import 'package:flutter_study/widget/date_picker/date_picker_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class BottomSheetDatePicker extends StatelessWidget {
@@ -16,7 +18,7 @@ class BottomSheetDatePicker extends StatelessWidget {
       mode: DatePickerSelectMode.range,
       firstDay: DateTime(DateTime.now().year - 1, 1, 1),
       lastDay: DateTime(DateTime.now().year + 1, 12, 31),
-      dateRange: const ['1주', '2주', '한 달'],
+      showDateRangeButton: true,
       header: (context) => Consumer<DatePickerViewModel>(
         builder: (_, datePickerViewModel, __) => Column(
           children: [
@@ -65,7 +67,7 @@ class BottomSheetDatePicker extends StatelessWidget {
                     ),
                   ),
                 ],
-                if (datePickerViewModel.selectedDateCellList.length > 1)
+                if (datePickerViewModel.selectedDateCellList.length > 1) ...[
                   Text(
                     dateFormat(
                         datePickerViewModel.selectedDateCellList.last.date,
@@ -74,7 +76,15 @@ class BottomSheetDatePicker extends StatelessWidget {
                       color: Colors.grey,
                       fontSize: 11,
                     ),
-                  )
+                  ),
+                  Text(
+                    ' (${datePickerViewModel.selectedDateCellList.length}일)',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 11,
+                    ),
+                  ),
+                ]
               ],
             )
           ],
@@ -94,15 +104,27 @@ class BottomSheetDatePicker extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              '오늘로 이동',
-              style: TextStyle(
-                fontSize: 12,
-                decoration: TextDecoration.underline,
+            GestureDetector(
+              onTap: () => context
+                  .read<DatePickerViewModel>()
+                  .changeScroll(DateTime.now()),
+              child: const Text(
+                '오늘로 이동',
+                style: TextStyle(
+                  fontSize: 12,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
             ElevatedButton(
-              onPressed: () => print('select'),
+              onPressed: () {
+                context.read<AddPlanViewModel>().setSelectedDate(context
+                    .read<DatePickerViewModel>()
+                    .selectedDateCellList
+                    .map((e) => e.date)
+                    .toList());
+                context.pop();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1773FC),
                 minimumSize: const Size(100, 40),

@@ -18,7 +18,7 @@ class DatePickerWidget extends StatelessWidget {
   final double? height;
   final DateTime? initSelectDate;
   final Function? onSelected;
-  final List<String>? dateRange;
+  final bool showDateRangeButton;
 
   const DatePickerWidget(
       {super.key,
@@ -31,7 +31,7 @@ class DatePickerWidget extends StatelessWidget {
       this.height,
       this.initSelectDate,
       this.onSelected,
-      this.dateRange});
+      this.showDateRangeButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,6 @@ class DatePickerWidget extends StatelessWidget {
         lastDay: lastDay,
         initSelectDate: initSelectDate,
         onSelected: onSelected,
-        dateRange: dateRange,
       ),
       builder: (context, child) {
         return FractionallySizedBox(
@@ -58,7 +57,7 @@ class DatePickerWidget extends StatelessWidget {
                 child: Scrollbar(
                   thickness: 0,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 14, right: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
                     child: ScrollablePositionedList.builder(
                       initialScrollIndex: dateDiff(
                               context
@@ -80,32 +79,35 @@ class DatePickerWidget extends StatelessWidget {
                 ),
               ),
               Consumer<DatePickerViewModel>(
-                builder: (_, datePickerViewModel, __) =>
-                    datePickerViewModel.dateRange != null &&
-                            datePickerViewModel.selectedDateCellList.isNotEmpty
-                        ? Container(
-                            height: 45,
-                            padding: const EdgeInsets.only(left: 14, right: 14),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFFD7D7D7),
-                                ),
-                              ),
+                builder: (_, datePickerViewModel, __) => showDateRangeButton &&
+                        datePickerViewModel.selectedDateCellList.isNotEmpty
+                    ? Container(
+                        height: 45,
+                        padding: const EdgeInsets.only(left: 14, right: 14),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              width: 1,
+                              color: Color(0xFFD7D7D7),
                             ),
-                            child: Row(
-                              children: datePickerViewModel.dateRange!
-                                  .expand((e) => [
-                                        DateRangeBadgeWidget(title: e),
-                                        const SizedBox(
-                                          width: 10,
-                                        )
-                                      ])
-                                  .toList(),
-                            ),
-                          )
-                        : const SizedBox(),
+                          ),
+                        ),
+                        child: Row(
+                          children: datePickerViewModel.dateRangeButton
+                              .expand((e) => [
+                                    DateRangeBadgeWidget(
+                                      title: e,
+                                      onTap: () => datePickerViewModel
+                                          .onTapDateRangeBadge(e),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    )
+                                  ])
+                              .toList(),
+                        ),
+                      )
+                    : const SizedBox(),
               ),
               if (bottom != null) bottom!(context),
             ],

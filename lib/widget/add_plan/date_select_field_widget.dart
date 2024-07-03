@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/add_plan_view_model.dart';
 import 'package:flutter_study/widget/add_plan/bottom_sheet_date_picker.dart';
 import 'package:provider/provider.dart';
@@ -39,10 +40,15 @@ class DateSelectFieldWidget extends StatelessWidget {
                     color: Color(0xFFC4C4C4),
                   ),
                 ),
-                const Text(
-                  '기간',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                context.watch<AddPlanViewModel>().selectedDate != null
+                    ? Text(
+                        '${dateFormat(context.watch<AddPlanViewModel>().selectedDate!.first, 'MMM dd일')} ~ ${dateFormat(context.watch<AddPlanViewModel>().selectedDate!.last, 'MMM dd일')}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    : const Text(
+                        '기간',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
               ],
             ),
           ],
