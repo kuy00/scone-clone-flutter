@@ -78,7 +78,7 @@ class BottomSheetDatePicker extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ' (${datePickerViewModel.selectedDateCellList.length}일)',
+                    ' (${datePickerViewModel.dateRange}일)',
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 11,

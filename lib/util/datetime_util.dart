@@ -2,8 +2,8 @@ import 'package:jiffy/jiffy.dart';
 
 num dateDiff(DateTime startDate, DateTime endDate,
     {Unit unit = Unit.microsecond}) {
-  var a = Jiffy.parseFromDateTime(startDate)
-      .diff(Jiffy.parseFromDateTime(endDate), unit: unit);
+  var a = Jiffy.parseFromDateTime(endDate)
+      .diff(Jiffy.parseFromDateTime(startDate), unit: unit);
   return a;
 }
 
