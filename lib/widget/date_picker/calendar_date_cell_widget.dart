@@ -17,12 +17,6 @@ class CalendarDateCell extends StatelessWidget {
         DateCellViewModel viewModel = DateCellViewModel(date: date);
         context.read<DatePickerViewModel>().addDateCell(viewModel);
 
-        if (context.read<DatePickerViewModel>().initSelectDate != null &&
-            isSameDate(
-                context.read<DatePickerViewModel>().initSelectDate!, date)) {
-          context.read<DatePickerViewModel>().selectedDate(viewModel);
-        }
-
         return viewModel;
       },
       builder: (context, child) {

@@ -16,7 +16,7 @@ class DatePickerWidget extends StatelessWidget {
   final WidgetBuilder? bottom;
   final double? width;
   final double? height;
-  final DateTime? initSelectDate;
+  final List<DateTime>? initDate;
   final Function? onSelected;
   final bool showDateRangeButton;
 
@@ -29,7 +29,7 @@ class DatePickerWidget extends StatelessWidget {
       this.bottom,
       this.width,
       this.height,
-      this.initSelectDate,
+      this.initDate,
       this.onSelected,
       this.showDateRangeButton = false});
 
@@ -40,10 +40,14 @@ class DatePickerWidget extends StatelessWidget {
         mode: mode,
         firstDay: firstDay,
         lastDay: lastDay,
-        initSelectDate: initSelectDate,
+        initDate: initDate,
         onSelected: onSelected,
       ),
       builder: (context, child) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.read<DatePickerViewModel>().selectedInitDate();
+        });
+
         return FractionallySizedBox(
           widthFactor: width,
           heightFactor: height,
@@ -60,14 +64,15 @@ class DatePickerWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 14),
                     child: ScrollablePositionedList.builder(
                       initialScrollIndex: dateDiff(
+                              firstDay,
                               context
                                       .read<DatePickerViewModel>()
-                                      .initSelectDate ??
+                                      .initDate
+                                      ?.first ??
                                   DateTime.now(),
-                              firstDay,
                               unit: Unit.month)
                           .toInt(),
-                      itemCount: dateDiff(lastDay, firstDay, unit: Unit.month)
+                      itemCount: dateDiff(firstDay, lastDay, unit: Unit.month)
                               .toInt() +
                           1,
                       itemScrollController:

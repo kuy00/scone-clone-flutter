@@ -28,30 +28,42 @@ class DateSelectFieldWidget extends StatelessWidget {
           color: const Color(0xFFF6F6F6),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+        child: Consumer<AddPlanViewModel>(
+          builder: (_, addPlanViewModel, __) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  child: const Icon(
-                    Icons.calendar_month,
-                    color: Color(0xFFC4C4C4),
-                  ),
-                ),
-                context.watch<AddPlanViewModel>().selectedDate != null
-                    ? Text(
-                        '${dateFormat(context.watch<AddPlanViewModel>().selectedDate!.first, 'MMM dd일')} ~ ${dateFormat(context.watch<AddPlanViewModel>().selectedDate!.last, 'MMM dd일')}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      )
-                    : const Text(
-                        '기간',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 8),
+                      child: const Icon(
+                        Icons.calendar_month,
+                        color: Color(0xFFC4C4C4),
                       ),
+                    ),
+                    addPlanViewModel.selectedDate != null
+                        ? Text(
+                            '${dateFormat(addPlanViewModel.selectedDate!.first, 'MMM dd일')} ~ ${dateFormat(addPlanViewModel.selectedDate!.last, 'MMM dd일')}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        : const Text(
+                            '기간',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                  ],
+                ),
+                if (addPlanViewModel.selectedDate != null)
+                  Text(
+                    '${addPlanViewModel.dateRange}일',
+                    style: const TextStyle(
+                      color: Color(0xFF1773FC),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

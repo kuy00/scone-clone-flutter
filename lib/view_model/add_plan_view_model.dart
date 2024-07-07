@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_study/util/datetime_util.dart';
+import 'package:jiffy/jiffy.dart';
 
 class AddPlanViewModel extends ChangeNotifier {
   List<DateTime>? _selectedDate;
@@ -19,6 +21,10 @@ class AddPlanViewModel extends ChangeNotifier {
   TextEditingController get priceTextController => _priceTextController;
   String? get displayPrice => _displayPrice;
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
+  int get dateRange =>
+      dateDiff(selectedDate!.first, selectedDate!.last, unit: Unit.day)
+          .toInt() +
+      1;
 
   void setSelectedDate(List<DateTime> dateList) {
     _selectedDate = dateList;

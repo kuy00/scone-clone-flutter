@@ -11,7 +11,7 @@ class DatePickerViewModel extends ChangeNotifier {
   final DatePickerSelectMode mode;
   final DateTime firstDay;
   final DateTime lastDay;
-  final DateTime? initSelectDate;
+  final List<DateTime>? initDate;
   final Function? onSelected;
   final List<String> _header = ['일', '월', '화', '수', '목', '금', '토'];
   final List<String> dateRangeButton = ['1주', '2주', '한 달'];
@@ -23,19 +23,24 @@ class DatePickerViewModel extends ChangeNotifier {
       {required this.mode,
       required this.firstDay,
       required this.lastDay,
-      this.initSelectDate,
+      this.initDate,
       this.onSelected});
 
   List<String> get header => _header;
   ItemScrollController get scrollController => _scrollController;
   List<DateCellViewModel> get selectedDateCellList => _selectedDateCellList;
+  int get dateRange =>
+      dateDiff(selectedDateCellList.first.date, selectedDateCellList.last.date,
+              unit: Unit.day)
+          .toInt() +
+      1;
 
   void addDateCell(DateCellViewModel viewModel) {
     _dateCellList.add(viewModel);
   }
 
   void selectedDate(DateCellViewModel viewModel) {
-    /* 
+    /*
       선택된 일자 초기화 기준
       1. DatePicker 일반 선택 모드
       2. DatePicker 범위 선택 모드, 선택된 날짜가 1개 초과
@@ -77,8 +82,19 @@ class DatePickerViewModel extends ChangeNotifier {
         _selectedDateCellList.insertAll(1, includedDate);
       }
     }
-
     notifyListeners();
+  }
+
+  void selectedInitDate() {
+    if (initDate != null) {
+      _dateCellList.map((e) {
+        if (isSameDate(e.date, initDate!.first)) {
+          selectedDate(e);
+        } else if (isSameDate(e.date, initDate!.last)) {
+          selectedDate(e);
+        }
+      }).toList();
+    }
   }
 
   int getIndexByDateCell(DateCellViewModel dateCell) {
@@ -135,7 +151,7 @@ class DatePickerViewModel extends ChangeNotifier {
 
   void changeScroll(DateTime date) {
     scrollController.scrollTo(
-        index: dateDiff(date, firstDay, unit: Unit.month).toInt(),
+        index: dateDiff(firstDay, date, unit: Unit.month).toInt(),
         duration: const Duration(seconds: 1));
   }
 }
