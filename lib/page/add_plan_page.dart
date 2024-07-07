@@ -12,19 +12,20 @@ class AddPlanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(
-    //   Duration.zero,
-    //   () => Future.delayed(
-    //     const Duration(milliseconds: 500),
-    //     () => _bottomSheet(context),
-    //   ),
-    // );
-
     return Scaffold(
       appBar: AppBarWidget(context),
       body: ChangeNotifierProvider(
         create: (_) => AddPlanViewModel(),
         builder: (context, child) {
+          WidgetsBinding.instance
+              .addPostFrameCallback((timeStamp) => Future.delayed(
+                    Duration.zero,
+                    () => Future.delayed(
+                      const Duration(milliseconds: 300),
+                      () => _bottomSheet(context),
+                    ),
+                  ));
+
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -88,9 +89,10 @@ class AddPlanPage extends StatelessWidget {
       showDragHandle: false,
       isScrollControlled: true,
       context: context,
-      builder: (_) {
-        return const BottomSheetDatePicker();
-      },
+      builder: (_) => ChangeNotifierProvider<AddPlanViewModel>.value(
+        value: context.read<AddPlanViewModel>(),
+        child: const BottomSheetDatePicker(),
+      ),
     );
   }
 }
