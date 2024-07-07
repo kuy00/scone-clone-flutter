@@ -18,20 +18,6 @@ class PlanListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addPlan() async {
-    // TODO : 추후에 등록 UI 추가 시 수정
-    await PlanRepository(Database().planDao).createPlan(PlanEntity(
-        startDate: DateTime.now(),
-        endDate: DateTime.now(),
-        type: PlanType.plan,
-        name: '계획1',
-        memo: 'memo',
-        icon: '😀',
-        planHistory: [],
-        totalAmount: 1000));
-    getPlan();
-  }
-
   // getter
   List<PlanEntity> get plans => _plans;
   int get currentPage => _currentPage;

@@ -15,7 +15,7 @@ class AppBarWidget extends AppBar {
           ),
           actions: [
             IconButton(
-              onPressed: () => context.pop(),
+              onPressed: () => context.go('/'),
               icon: const Text('취소'),
             ),
           ],
