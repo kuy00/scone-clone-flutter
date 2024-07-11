@@ -15,7 +15,11 @@ class CircularIndicatorViewModel extends ChangeNotifier {
         dateDiff(DateTime.now(), plan.endDate, unit: Unit.day).toDouble() /
             dateDiff(plan.startDate, plan.endDate, unit: Unit.day).toDouble();
 
-    return percent < 0 || percent.isNaN || percent.isInfinite ? 0 : percent;
+    return percent < 0 || percent.isNaN || percent.isInfinite
+        ? 0
+        : percent > 1
+            ? 1
+            : percent;
   }
 
   void setIsPressed(flag) {

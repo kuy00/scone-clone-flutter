@@ -17,6 +17,8 @@ class DescriptionTextFieldWidget extends StatelessWidget {
       ),
       child: TextFieldWidget(
         controller: context.read<AddPlanViewModel>().descriptionTextController,
+        focusNode:
+            context.read<AddPlanViewModel>().descriptionTextFieldFocusNode,
         prefix: const Row(
           children: [
             Icon(

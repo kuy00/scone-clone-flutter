@@ -17,52 +17,51 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, child) {
         return Scaffold(
-            backgroundColor: const Color(0xFFF3F3F3),
-            appBar: AppBarWidget(context),
-            body: Column(
-              children: [
-                Consumer<PlanListViewModel>(
-                    builder: (context, planListViewModel, child) {
-                  return Expanded(
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: AppBarWidget(context),
+          body: Consumer<PlanListViewModel>(
+            builder: (context, planListViewModel, child) {
+              return Column(
+                children: [
+                  Expanded(
                     child: PageView.builder(
-                        controller: planListViewModel.pageController,
-                        onPageChanged: planListViewModel.changePage,
-                        itemCount: planListViewModel.plans.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return PlanCardWidget(
-                            plan: planListViewModel.plans[index],
-                          );
-                        }),
-                  );
-                }),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  height: 10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List<Widget>.generate(
-                      context.read<PlanListViewModel>().dotsCount,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: CircleAvatar(
-                            radius: 8,
-                            backgroundColor: context
-                                        .watch<PlanListViewModel>()
-                                        .currentPage ==
-                                    context
-                                        .read<PlanListViewModel>()
-                                        .getDotsIndex(index)
-                                ? const Color(0xFF181818)
-                                : Colors.grey,
-                          ),
+                      controller: planListViewModel.pageController,
+                      onPageChanged: planListViewModel.changePage,
+                      itemCount: planListViewModel.plans.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PlanCardWidget(
+                          plan: planListViewModel.plans[index],
                         );
                       },
                     ),
                   ),
-                ),
-              ],
-            ));
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    height: 10,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(
+                        planListViewModel.dotsCount,
+                        (index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: CircleAvatar(
+                              radius: 8,
+                              backgroundColor: planListViewModel.currentPage ==
+                                      planListViewModel.getDotsIndex(index)
+                                  ? const Color(0xFF181818)
+                                  : Colors.grey,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
       },
     );
   }

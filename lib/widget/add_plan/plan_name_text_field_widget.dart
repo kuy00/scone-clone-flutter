@@ -17,6 +17,7 @@ class PlanNameTextFieldWidget extends StatelessWidget {
       ),
       child: TextFieldWidget(
         controller: context.read<AddPlanViewModel>().planNameTextController,
+        focusNode: context.read<AddPlanViewModel>().planNameTextFieldFocusNode,
         prefix: const Row(
           children: [
             Icon(

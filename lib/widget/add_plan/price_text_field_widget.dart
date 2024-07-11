@@ -18,6 +18,7 @@ class PriceTextFieldWidget extends StatelessWidget {
       ),
       child: TextFieldWidget(
         controller: context.read<AddPlanViewModel>().priceTextController,
+        focusNode: context.read<AddPlanViewModel>().priceTextFieldFocusNode,
         prefix: const Row(
           children: [
             Icon(

@@ -18,6 +18,9 @@ class AddPlanViewModel extends ChangeNotifier {
   final TextEditingController _planNameTextController = TextEditingController();
   final TextEditingController _descriptionTextController =
       TextEditingController();
+  final FocusNode _priceTextFieldFocusNode = FocusNode();
+  final FocusNode _planNameTextFieldFocusNode = FocusNode();
+  final FocusNode _descriptionTextFieldFocusNode = FocusNode();
   String _displayPrice = '';
   bool _isPriceFieldDeleteIconVisible = false;
   bool _isPlanNameFieldDeleteIconVisible = false;
@@ -32,6 +35,10 @@ class AddPlanViewModel extends ChangeNotifier {
     _planNameTextController.addListener(() => _onTextFieldChanged('planName'));
     _descriptionTextController
         .addListener(() => _onTextFieldChanged('description'));
+
+    _priceTextFieldFocusNode.addListener(_onFocusChanged);
+    _planNameTextFieldFocusNode.addListener(_onFocusChanged);
+    _descriptionTextFieldFocusNode.addListener(_onFocusChanged);
   }
 
   void _onTextFieldChanged(String field) {
@@ -53,11 +60,29 @@ class AddPlanViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _onFocusChanged() {
+    if (_priceTextFieldFocusNode.hasFocus) {
+      _isPriceFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
+    } else if (_planNameTextFieldFocusNode.hasFocus) {
+      _isDescriptionFieldDeleteIconVisible = false;
+      _isPlanNameFieldDeleteIconVisible = _priceTextController.text.isNotEmpty;
+    } else if (_descriptionTextFieldFocusNode.hasFocus) {
+      _isPlanNameFieldDeleteIconVisible = false;
+      _isDescriptionFieldDeleteIconVisible =
+          _descriptionTextController.text.isNotEmpty;
+    }
+
+    notifyListeners();
+  }
+
   List<DateTime>? get selectedDate => _selectedDate;
   TextEditingController get priceTextController => _priceTextController;
   TextEditingController get planNameTextController => _planNameTextController;
   TextEditingController get descriptionTextController =>
       _descriptionTextController;
+  FocusNode get priceTextFieldFocusNode => _priceTextFieldFocusNode;
+  FocusNode get planNameTextFieldFocusNode => _planNameTextFieldFocusNode;
+  FocusNode get descriptionTextFieldFocusNode => _descriptionTextFieldFocusNode;
   String? get displayPrice => _displayPrice;
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
   bool get isPlanNameFieldDeleteIconVisible =>
