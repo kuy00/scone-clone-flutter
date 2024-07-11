@@ -31,8 +31,7 @@ class DatePickerViewModel extends ChangeNotifier {
   List<DateCellViewModel> get selectedDateCellList => _selectedDateCellList;
   int get dateRange =>
       dateDiff(selectedDateCellList.first.date, selectedDateCellList.last.date,
-              unit: Unit.day)
-          .toInt() +
+          unit: Unit.day) +
       1;
 
   void addDateCell(DateCellViewModel viewModel) {
@@ -151,7 +150,7 @@ class DatePickerViewModel extends ChangeNotifier {
 
   void changeScroll(DateTime date) {
     scrollController.scrollTo(
-        index: dateDiff(firstDay, date, unit: Unit.month).toInt(),
+        index: dateDiff(firstDay, date, unit: Unit.month)
         duration: const Duration(seconds: 1));
   }
 }

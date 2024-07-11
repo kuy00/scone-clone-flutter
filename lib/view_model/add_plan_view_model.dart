@@ -63,9 +63,7 @@ class AddPlanViewModel extends ChangeNotifier {
   bool get isDescriptionFieldDeleteIconVisible =>
       _isDescriptionFieldDeleteIconVisible;
   int get dateRange =>
-      dateDiff(selectedDate!.first, selectedDate!.last, unit: Unit.day)
-          .toInt() +
-      1;
+      dateDiff(selectedDate!.first, selectedDate!.last, unit: Unit.day) + 1;
   bool get isFirstStepInvalid =>
       _priceTextController.text.isNotEmpty && _selectedDate != null;
   bool get isSecondStepInvalid => _planNameTextController.text.isNotEmpty;
