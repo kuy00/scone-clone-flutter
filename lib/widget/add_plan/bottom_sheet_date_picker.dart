@@ -18,7 +18,7 @@ class BottomSheetDatePicker extends StatelessWidget {
       mode: DatePickerSelectMode.range,
       firstDay: DateTime(DateTime.now().year - 1, 1, 1),
       lastDay: DateTime(DateTime.now().year + 1, 12, 31),
-      initDate: context.watch<AddPlanViewModel>().selectedDate,
+      initDate: context.read<AddPlanViewModel>().selectedDate,
       showDateRangeButton: true,
       header: (context) => Consumer<DatePickerViewModel>(
         builder: (_, datePickerViewModel, __) => Column(

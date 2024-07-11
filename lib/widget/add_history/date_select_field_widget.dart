@@ -28,7 +28,7 @@ class DateSelectFieldWidget extends StatelessWidget {
                 '날짜 선택',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
-              initDate: [context.watch<AddHistoryViewModel>().date],
+              initDate: [context.read<AddHistoryViewModel>().date],
               onSelected: (selectedDate) {
                 context.read<AddHistoryViewModel>().setDate(selectedDate);
                 context.pop();
@@ -60,11 +60,13 @@ class DateSelectFieldWidget extends StatelessWidget {
                     context.watch<AddHistoryViewModel>().date, 'M월 d일 EEEE')),
               ],
             ),
-            if (isToday(context.watch<AddHistoryViewModel>().date))
-              const Text(
+            Visibility(
+              visible: isToday(context.watch<AddHistoryViewModel>().date),
+              child: const Text(
                 '오늘',
                 style: TextStyle(color: Color(0xFF1773FC)),
               ),
+            )
           ],
         ),
       ),
