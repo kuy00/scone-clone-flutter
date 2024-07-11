@@ -34,7 +34,7 @@ class AppBarWidget extends AppBar {
           ),
           actions: <Widget>[
             IconButton(
-                onPressed: () => context.push('/addPlan'),
+                onPressed: () => context.go('/addPlan'),
                 icon: const Icon(Icons.add)),
             IconButton(
                 onPressed: () => print('more button clicked'),

@@ -12,42 +12,39 @@ final GoRouter routes = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/plan/:id/addHistory',
+      pageBuilder: (BuildContext context, GoRouterState state) => CupertinoPage(
+        child: AddHistoryPage(
+          planId: int.parse(state.pathParameters['id']!),
+        ),
+      ),
+    ),
+    GoRoute(
+      path: '/addPlan',
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const CupertinoPage(
+        child: AddPlanFirstStepPage(),
+      ),
       routes: <RouteBase>[
         GoRoute(
-          path: 'plan/:id/addHistory',
+          path: 'secondStep',
           pageBuilder: (BuildContext context, GoRouterState state) =>
               CupertinoPage(
-            child: AddHistoryPage(
-              planId: int.parse(state.pathParameters['id']!),
+            child: AddPlanSecondStepPage(
+              viewModel: state.extra as AddPlanViewModel,
             ),
           ),
         ),
         GoRoute(
-          path: 'addPlan',
+          path: 'complete',
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const CupertinoPage(
-            child: AddPlanFirstStepPage(),
+              CupertinoPage(
+            child: AddPlanCompletePage(
+              viewModel: state.extra as AddPlanViewModel,
+            ),
           ),
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'secondStep',
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  CupertinoPage(
-                child: AddPlanSecondStepPage(
-                  viewModel: state.extra as AddPlanViewModel,
-                ),
-              ),
-            ),
-            GoRoute(
-              path: 'complete',
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  CupertinoPage(
-                child: AddPlanCompletePage(
-                  viewModel: state.extra as AddPlanViewModel,
-                ),
-              ),
-            ),
-          ],
         ),
       ],
     ),
