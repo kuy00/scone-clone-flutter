@@ -150,7 +150,7 @@ class DatePickerViewModel extends ChangeNotifier {
 
   void changeScroll(DateTime date) {
     scrollController.scrollTo(
-        index: dateDiff(firstDay, date, unit: Unit.month)
+        index: dateDiff(firstDay, date, unit: Unit.month),
         duration: const Duration(seconds: 1));
   }
 }
