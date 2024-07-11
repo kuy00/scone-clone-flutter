@@ -43,9 +43,11 @@ class AddPlanViewModel extends ChangeNotifier {
       case 'planName':
         _isPlanNameFieldDeleteIconVisible =
             _planNameTextController.text.isNotEmpty;
+        break;
       case 'description':
         _isDescriptionFieldDeleteIconVisible =
             _descriptionTextController.text.isNotEmpty;
+        break;
     }
 
     notifyListeners();
