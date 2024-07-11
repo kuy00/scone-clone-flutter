@@ -3,6 +3,7 @@ import 'package:flutter_study/enum/date_picker_select_mode.dart';
 import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/add_plan_view_model.dart';
 import 'package:flutter_study/view_model/date_picker_view_model.dart';
+import 'package:flutter_study/widget/button_widget.dart';
 import 'package:flutter_study/widget/date_picker/date_picker_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -102,47 +103,34 @@ class BottomSheetDatePicker extends StatelessWidget {
             ),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () => context
-                  .read<DatePickerViewModel>()
-                  .changeScroll(DateTime.now()),
-              child: const Text(
-                '오늘로 이동',
-                style: TextStyle(
-                  fontSize: 12,
-                  decoration: TextDecoration.underline,
+        child: Consumer<DatePickerViewModel>(
+          builder: (_, datePickerViewModel, __) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () => datePickerViewModel.changeScroll(DateTime.now()),
+                child: const Text(
+                  '오늘로 이동',
+                  style: TextStyle(
+                    fontSize: 12,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                context.read<AddPlanViewModel>().setSelectedDate(context
-                    .read<DatePickerViewModel>()
-                    .selectedDateCellList
-                    .map((e) => e.date)
-                    .toList());
-                context.pop();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1773FC),
-                minimumSize: const Size(100, 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
+              ButtonWidget(
+                text: '선택',
+                disabled: datePickerViewModel.selectedDateCellList.length <= 1,
+                onPressed: () {
+                  context.read<AddPlanViewModel>().setSelectedDate(context
+                      .read<DatePickerViewModel>()
+                      .selectedDateCellList
+                      .map((e) => e.date)
+                      .toList());
+                  context.pop();
+                },
               ),
-              child: const Text(
-                '선택',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
