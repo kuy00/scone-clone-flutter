@@ -4,15 +4,15 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_study/database/database.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/enum/plan_type.dart';
 import 'package:flutter_study/util/datetime_util.dart';
+import 'package:get_it/get_it.dart';
 import 'package:jiffy/jiffy.dart';
 
 class AddPlanViewModel extends ChangeNotifier {
-  final PlanRepository planRepository = PlanRepository(Database().planDao);
+  final PlanRepository planRepository = GetIt.I<PlanRepository>();
   List<DateTime>? _selectedDate;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _planNameTextController = TextEditingController();
@@ -123,8 +123,7 @@ class AddPlanViewModel extends ChangeNotifier {
       totalAmount: int.parse(_priceTextController.text.replaceAll(',', '')),
     );
 
-    // TODO : 추가된 플랜 재조회 방식 확인 필요
-    await PlanRepository(Database().planDao).createPlan(planEntity);
+    await planRepository.createPlan(planEntity);
   }
 
   @override

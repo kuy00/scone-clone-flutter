@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/dependency_injections_.dart';
 import 'package:flutter_study/routes.dart';
 import 'package:jiffy/jiffy.dart';
 
 void main() async {
   await Jiffy.setLocale('ko');
+  setupLocator();
   runApp(const MyApp());
 }
 

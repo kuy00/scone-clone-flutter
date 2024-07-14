@@ -4,14 +4,14 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_study/database/database.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enum/plan_history_type.dart';
+import 'package:get_it/get_it.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {
-  final PlanRepository planRepository = PlanRepository(Database().planDao);
+  final PlanRepository planRepository = GetIt.I<PlanRepository>();
 
   final int planId;
   late PlanEntity plan;

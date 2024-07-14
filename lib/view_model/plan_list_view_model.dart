@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/database/database.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enum/plan_type.dart';
+import 'package:get_it/get_it.dart';
 
 class PlanListViewModel extends ChangeNotifier {
-  // TODO : 의존성 주입
-  final PlanRepository planRepository = PlanRepository(Database().planDao);
+  final PlanRepository planRepository = GetIt.I<PlanRepository>();
   final pageController = PageController(initialPage: 0);
   List<PlanEntity> _plans = [];
   int _currentPage = 0;
