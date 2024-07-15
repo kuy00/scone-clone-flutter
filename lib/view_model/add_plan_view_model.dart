@@ -29,6 +29,7 @@ class AddPlanViewModel extends ChangeNotifier {
       .emoji[Random().nextInt(defaultEmojiSet[2].emoji.length)]
       .emoji
       .toString();
+  bool _isFirst = true;
 
   AddPlanViewModel() {
     _priceTextController.addListener(() => _onTextFieldChanged('price'));
@@ -83,7 +84,7 @@ class AddPlanViewModel extends ChangeNotifier {
   FocusNode get priceTextFieldFocusNode => _priceTextFieldFocusNode;
   FocusNode get planNameTextFieldFocusNode => _planNameTextFieldFocusNode;
   FocusNode get descriptionTextFieldFocusNode => _descriptionTextFieldFocusNode;
-  String? get displayPrice => _displayPrice;
+  String get displayPrice => _displayPrice ?? '';
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
   bool get isPlanNameFieldDeleteIconVisible =>
       _isPlanNameFieldDeleteIconVisible;
@@ -95,6 +96,7 @@ class AddPlanViewModel extends ChangeNotifier {
       _priceTextController.text.isNotEmpty && _selectedDate != null;
   bool get isSecondStepInvalid => _planNameTextController.text.isNotEmpty;
   String get emoji => _emoji;
+  bool get isFirst => _isFirst;
 
   void setSelectedDate(List<DateTime> dateList) {
     _selectedDate = dateList;
@@ -104,6 +106,10 @@ class AddPlanViewModel extends ChangeNotifier {
   void setDisplayPrice(String price) {
     _displayPrice = price;
     notifyListeners();
+  }
+
+  void setIsFirst() {
+    _isFirst = !_isFirst;
   }
 
   void clearSecondPage() {

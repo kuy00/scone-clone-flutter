@@ -14,17 +14,19 @@ class AddPlanFirstStepPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AddPlanViewModel(),
+      create: (_) {
+        return AddPlanViewModel();
+      },
       builder: (context, child) {
-        // TODO : 위젯이 리빌드 되는 시점마다 호출되는 현상 해결 필요
-        // WidgetsBinding.instance
-        //     .addPostFrameCallback((timeStamp) => Future.delayed(
-        //           Duration.zero,
-        //           () => Future.delayed(
-        //             const Duration(milliseconds: 300),
-        //             () => _bottomSheet(context),
-        //           ),
-        //         ));
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          if (context.read<AddPlanViewModel>().isFirst) {
+            Future.delayed(
+              const Duration(milliseconds: 300),
+              () => _bottomSheet(context),
+            );
+            context.read<AddPlanViewModel>().setIsFirst();
+          }
+        });
 
         return Scaffold(
           appBar: AppBarWidget(context),
@@ -43,32 +45,43 @@ class AddPlanFirstStepPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 const PriceTextFieldWidget(),
                 const SizedBox(height: 4),
-                if (context.watch<AddPlanViewModel>().displayPrice != '')
-                  Row(
-                    children: [
-                      const SizedBox(width: 44),
-                      Text(
-                        '${context.watch<AddPlanViewModel>().displayPrice} 원',
-                        style: const TextStyle(color: Colors.grey),
+                Builder(
+                  builder: (context) {
+                    final displayPrice = context
+                        .select<AddPlanViewModel, String>((addPlanViewModel) =>
+                            addPlanViewModel.displayPrice);
+                    return Visibility(
+                      visible: displayPrice != '',
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 44),
+                          Text(
+                            '$displayPrice 원',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-              child: ButtonWidget(
-                text: '다음',
-                disabled: !context.watch<AddPlanViewModel>().isFirstStepInvalid,
-                onPressed: () => context
-                    .push('/addPlan/secondStep',
-                        extra: context.read<AddPlanViewModel>())
-                    .then((value) =>
-                        context.read<AddPlanViewModel>().clearSecondPage()),
+          bottomNavigationBar: Consumer<AddPlanViewModel>(
+            builder: (_, addPlanViewModel, __) => Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                child: ButtonWidget(
+                  text: '다음',
+                  disabled: !addPlanViewModel.isFirstStepInvalid,
+                  onPressed: () => context
+                      .push('/addPlan/secondStep', extra: addPlanViewModel)
+                      .then((value) =>
+                          context.read<AddPlanViewModel>().clearSecondPage()),
+                ),
               ),
             ),
           ),
