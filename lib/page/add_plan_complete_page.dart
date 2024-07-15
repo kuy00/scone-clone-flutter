@@ -20,7 +20,6 @@ class AddPlanCompletePage extends StatelessWidget {
           appBar: AppBarWidget(context),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             child: Center(
               child: Column(
                 children: [

@@ -21,7 +21,7 @@ class AddPlanSecondStepPage extends StatelessWidget {
           appBar: AppBarWidget(context),
           body: const SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
