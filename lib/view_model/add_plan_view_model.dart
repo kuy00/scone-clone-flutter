@@ -137,6 +137,9 @@ class AddPlanViewModel extends ChangeNotifier {
     _priceTextController.dispose();
     _planNameTextController.dispose();
     _descriptionTextController.dispose();
+    _priceTextFieldFocusNode.dispose();
+    _planNameTextFieldFocusNode.dispose();
+    _descriptionTextFieldFocusNode.dispose();
 
     super.dispose();
   }
