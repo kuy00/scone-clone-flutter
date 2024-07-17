@@ -13,6 +13,7 @@ import 'package:jiffy/jiffy.dart';
 
 class AddPlanViewModel extends ChangeNotifier {
   final PlanRepository planRepository = GetIt.I<PlanRepository>();
+  final PlanType _planType;
   List<DateTime>? _selectedDate;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _planNameTextController = TextEditingController();
@@ -31,7 +32,7 @@ class AddPlanViewModel extends ChangeNotifier {
       .toString();
   bool _isFirst = true;
 
-  AddPlanViewModel() {
+  AddPlanViewModel(this._planType) {
     _priceTextController.addListener(() => _onTextFieldChanged('price'));
     _planNameTextController.addListener(() => _onTextFieldChanged('planName'));
     _descriptionTextController
@@ -76,6 +77,7 @@ class AddPlanViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  PlanType get planType => _planType;
   List<DateTime>? get selectedDate => _selectedDate;
   TextEditingController get priceTextController => _priceTextController;
   TextEditingController get planNameTextController => _planNameTextController;
@@ -93,7 +95,10 @@ class AddPlanViewModel extends ChangeNotifier {
   int get dateRange =>
       dateDiff(selectedDate!.first, selectedDate!.last, unit: Unit.day) + 1;
   bool get isFirstStepInvalid =>
-      _priceTextController.text.isNotEmpty && _selectedDate != null;
+      _selectedDate != null &&
+      ((_planType == PlanType.plan && _priceTextController.text.isNotEmpty) ||
+          (_planType == PlanType.free &&
+              planNameTextController.text.isNotEmpty));
   bool get isSecondStepInvalid => _planNameTextController.text.isNotEmpty;
   String get emoji => _emoji;
   bool get isFirst => _isFirst;
@@ -121,12 +126,14 @@ class AddPlanViewModel extends ChangeNotifier {
     PlanEntity planEntity = PlanEntity(
       startDate: _selectedDate!.first,
       endDate: _selectedDate!.last,
-      type: PlanType.plan, // TODO : 플랜 타입 구분 필요
+      type: _planType,
       name: _planNameTextController.text,
       memo: _descriptionTextController.text,
       icon: emoji,
       planHistory: [],
-      totalAmount: int.parse(_priceTextController.text.replaceAll(',', '')),
+      totalAmount: _priceTextController.text.isNotEmpty
+          ? int.parse(_priceTextController.text.replaceAll(',', ''))
+          : 0,
     );
 
     await planRepository.createPlan(planEntity);

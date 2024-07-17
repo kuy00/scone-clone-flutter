@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/add_plan_view_model.dart';
 import 'package:flutter_study/widget/add_plan/app_bar_widget.dart';
@@ -65,16 +66,24 @@ class AddPlanCompletePage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  Text(
-                    '${context.read<AddPlanViewModel>().priceTextController.text}원',
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1773FC),
+                  Visibility(
+                    visible: context.read<AddPlanViewModel>().planType ==
+                        PlanType.plan,
+                    child: Column(
+                      children: [
+                        Text(
+                          '${context.read<AddPlanViewModel>().priceTextController.text}원',
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1773FC),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        )
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
                   ),
                   Text(
                     '${dateFormat(context.read<AddPlanViewModel>().selectedDate!.first, 'MMM dd일')} ~ ${dateFormat(context.read<AddPlanViewModel>().selectedDate!.last, 'MMM dd일')}',

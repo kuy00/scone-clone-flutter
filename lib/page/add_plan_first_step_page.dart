@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 import 'package:flutter_study/view_model/add_plan_view_model.dart';
 import 'package:flutter_study/widget/add_plan/bottom_sheet_date_picker.dart';
 import 'package:flutter_study/widget/add_plan/date_select_field_widget.dart';
 import 'package:flutter_study/widget/add_plan/app_bar_widget.dart';
+import 'package:flutter_study/widget/add_plan/description_text_field_widget.dart';
+import 'package:flutter_study/widget/add_plan/plan_name_text_field_widget.dart';
 import 'package:flutter_study/widget/add_plan/price_text_field_widget.dart';
 import 'package:flutter_study/widget/button_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AddPlanFirstStepPage extends StatelessWidget {
-  const AddPlanFirstStepPage({super.key});
+  final PlanType planType;
+
+  const AddPlanFirstStepPage({super.key, required this.planType});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) {
-        return AddPlanViewModel();
+        return AddPlanViewModel(planType);
       },
       builder: (context, child) {
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -35,29 +40,56 @@ class AddPlanFirstStepPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '플랜 기간과 예산을\n입력하세요',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                const DateSelectFieldWidget(),
-                const SizedBox(height: 10),
-                const PriceTextFieldWidget(),
-                const SizedBox(height: 4),
-                Consumer<AddPlanViewModel>(
-                  builder: (_, addPlanViewModel, __) => Visibility(
-                    visible: addPlanViewModel.displayPrice != '',
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 44),
-                        Text(
-                          '${addPlanViewModel.displayPrice} 원',
-                          style: const TextStyle(color: Colors.grey),
+                Visibility(
+                  visible: planType == PlanType.plan,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '플랜 기간과 예산을\n입력하세요',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10),
+                      const DateSelectFieldWidget(),
+                      const SizedBox(height: 10),
+                      const PriceTextFieldWidget(),
+                      const SizedBox(height: 4),
+                      Consumer<AddPlanViewModel>(
+                        builder: (_, addPlanViewModel, __) => Visibility(
+                          visible: addPlanViewModel.displayPrice != '',
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 44),
+                              Text(
+                                '${addPlanViewModel.displayPrice} 원',
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      )
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: planType == PlanType.free,
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '플랜 기간과 이름을\n입력하세요',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      DateSelectFieldWidget(),
+                      SizedBox(height: 10),
+                      PlanNameTextFieldWidget(),
+                      SizedBox(height: 10),
+                      DescriptionTextFieldWidget(),
+                    ],
                   ),
                 )
               ],
@@ -73,9 +105,16 @@ class AddPlanFirstStepPage extends StatelessWidget {
                 child: ButtonWidget(
                   text: '다음',
                   disabled: !addPlanViewModel.isFirstStepInvalid,
-                  onPressed: () => context
-                      .push('/addPlan/secondStep', extra: addPlanViewModel)
-                      .then((value) => addPlanViewModel.clearSecondPage()),
+                  onPressed: () {
+                    if (planType == PlanType.plan) {
+                      context
+                          .push('/addPlan/secondStep', extra: addPlanViewModel)
+                          .then((value) => addPlanViewModel.clearSecondPage());
+                    } else if (planType == PlanType.free) {
+                      context.push('/addPlan/complete',
+                          extra: addPlanViewModel);
+                    }
+                  },
                 ),
               ),
             ),

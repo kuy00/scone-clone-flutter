@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 import 'package:flutter_study/page/add_history_page.dart';
 import 'package:flutter_study/page/add_plan_complete_page.dart';
 import 'package:flutter_study/page/add_plan_first_step_page.dart';
@@ -30,14 +31,16 @@ final GoRouter routes = GoRouter(
       ),
       routes: <RouteBase>[
         GoRoute(
-          path: ':type/firstStep',
+          path: 'firstStep',
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const CupertinoPage(
-            child: AddPlanFirstStepPage(),
+              CupertinoPage(
+            child: AddPlanFirstStepPage(
+              planType: state.extra as PlanType,
+            ),
           ),
         ),
         GoRoute(
-          path: ':type/secondStep',
+          path: 'secondStep',
           pageBuilder: (BuildContext context, GoRouterState state) =>
               CupertinoPage(
             child: AddPlanSecondStepPage(
@@ -46,7 +49,7 @@ final GoRouter routes = GoRouter(
           ),
         ),
         GoRoute(
-          path: ':type/complete',
+          path: 'complete',
           pageBuilder: (BuildContext context, GoRouterState state) =>
               CupertinoPage(
             child: AddPlanCompletePage(

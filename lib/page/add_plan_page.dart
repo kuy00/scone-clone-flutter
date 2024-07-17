@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 import 'package:go_router/go_router.dart';
 
 class AddPlanPage extends StatelessWidget {
@@ -31,7 +32,8 @@ class AddPlanPage extends StatelessWidget {
               height: 20,
             ),
             GestureDetector(
-              onTap: () => context.push('/addPlan/plan/firstStep'),
+              onTap: () =>
+                  context.push('/addPlan/firstStep', extra: PlanType.plan),
               child: Container(
                 width: double.infinity,
                 height: 100,
@@ -66,7 +68,8 @@ class AddPlanPage extends StatelessWidget {
             ),
             GestureDetector(
               // TODO : 플랜 유형에 맞게 처리 필요
-              onTap: () => context.push('/addPlan/plan/firstStep'),
+              onTap: () =>
+                  context.push('/addPlan/firstStep', extra: PlanType.free),
               child: Container(
                 width: double.infinity,
                 height: 100,
