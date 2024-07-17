@@ -36,17 +36,19 @@ class AddPlanSecondStepPage extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-              child: ButtonWidget(
-                text: '다음',
-                disabled:
-                    !context.watch<AddPlanViewModel>().isSecondStepInvalid,
-                onPressed: () => context.push('/addPlan/complete',
-                    extra: context.read<AddPlanViewModel>()),
+          bottomNavigationBar: Consumer<AddPlanViewModel>(
+            builder: (_, addPlanViewModel, __) => Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                child: ButtonWidget(
+                  text: '다음',
+                  disabled: !addPlanViewModel.isSecondStepInvalid,
+                  onPressed: () => context.push('/addPlan/complete',
+                      extra: addPlanViewModel),
+                ),
               ),
             ),
           ),

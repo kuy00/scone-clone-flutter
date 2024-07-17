@@ -29,6 +29,7 @@ class AddPlanFirstStepPage extends StatelessWidget {
         });
 
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBarWidget(context),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -45,25 +46,20 @@ class AddPlanFirstStepPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 const PriceTextFieldWidget(),
                 const SizedBox(height: 4),
-                Builder(
-                  builder: (context) {
-                    final displayPrice = context
-                        .select<AddPlanViewModel, String>((addPlanViewModel) =>
-                            addPlanViewModel.displayPrice);
-                    return Visibility(
-                      visible: displayPrice != '',
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 44),
-                          Text(
-                            '$displayPrice 원',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                Consumer<AddPlanViewModel>(
+                  builder: (_, addPlanViewModel, __) => Visibility(
+                    visible: addPlanViewModel.displayPrice != '',
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 44),
+                        Text(
+                          '${addPlanViewModel.displayPrice} 원',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -79,8 +75,7 @@ class AddPlanFirstStepPage extends StatelessWidget {
                   disabled: !addPlanViewModel.isFirstStepInvalid,
                   onPressed: () => context
                       .push('/addPlan/secondStep', extra: addPlanViewModel)
-                      .then((value) =>
-                          context.read<AddPlanViewModel>().clearSecondPage()),
+                      .then((value) => addPlanViewModel.clearSecondPage()),
                 ),
               ),
             ),
