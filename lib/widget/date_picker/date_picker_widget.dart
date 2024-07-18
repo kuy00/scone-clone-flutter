@@ -84,35 +84,36 @@ class DatePickerWidget extends StatelessWidget {
                 ),
               ),
               Consumer<DatePickerViewModel>(
-                builder: (_, datePickerViewModel, __) => showDateRangeButton &&
-                        datePickerViewModel.selectedDateCellList.isNotEmpty
-                    ? Container(
-                        height: 45,
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(
-                              width: 1,
-                              color: Color(0xFFD7D7D7),
-                            ),
-                          ),
+                builder: (_, datePickerViewModel, __) => Visibility(
+                  visible: showDateRangeButton &&
+                      datePickerViewModel.selectedDateCellList.isNotEmpty,
+                  child: Container(
+                    height: 45,
+                    padding: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          width: 1,
+                          color: Color(0xFFD7D7D7),
                         ),
-                        child: Row(
-                          children: datePickerViewModel.dateRangeButton
-                              .expand((e) => [
-                                    DateRangeBadgeWidget(
-                                      title: e,
-                                      onTap: () => datePickerViewModel
-                                          .onTapDateRangeBadge(e),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    )
-                                  ])
-                              .toList(),
-                        ),
-                      )
-                    : const SizedBox(),
+                      ),
+                    ),
+                    child: Row(
+                      children: datePickerViewModel.dateRangeButton
+                          .expand((e) => [
+                                DateRangeBadgeWidget(
+                                  title: e,
+                                  onTap: () => datePickerViewModel
+                                      .onTapDateRangeBadge(e),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                )
+                              ])
+                          .toList(),
+                    ),
+                  ),
+                ),
               ),
               if (bottom != null) bottom!(context),
             ],
