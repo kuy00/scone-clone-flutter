@@ -22,74 +22,79 @@ class BottomSheetDatePicker extends StatelessWidget {
       initDate: context.read<AddPlanViewModel>().selectedDate,
       showDateRangeButton: true,
       header: (context) => Consumer<DatePickerViewModel>(
-        builder: (_, datePickerViewModel, __) => Column(
-          children: [
-            if (datePickerViewModel.selectedDateCellList.isEmpty)
-              const Text(
-                '시작일을 선택하세요.',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              )
-            else if (datePickerViewModel.selectedDateCellList.length == 1)
-              const Text(
-                '종료일을 선택하세요.',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              )
-            else
-              const Text(
-                '플랜 기간',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              ),
-            const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (datePickerViewModel.selectedDateCellList.isEmpty)
-                  const Text(
-                    '-',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 11,
+        builder: (_, datePickerViewModel, __) => SizedBox(
+          height: 50,
+          child: Column(
+            children: [
+              if (datePickerViewModel.selectedDateCellList.isEmpty)
+                const Text(
+                  '시작일을 선택하세요.',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                )
+              else if (datePickerViewModel.selectedDateCellList.length == 1)
+                const Text(
+                  '종료일을 선택하세요.',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                )
+              else
+                const Text(
+                  '플랜 기간',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                ),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Visibility(
+                    visible: datePickerViewModel.selectedDateCellList.isEmpty,
+                    child: const Text(
+                      '-',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
                     ),
                   ),
-                if (datePickerViewModel.selectedDateCellList.isNotEmpty) ...[
-                  Text(
-                    dateFormat(
-                        datePickerViewModel.selectedDateCellList.first.date,
-                        'MMM dd일'),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 11,
+                  if (datePickerViewModel.selectedDateCellList.isNotEmpty) ...[
+                    Text(
+                      dateFormat(
+                          datePickerViewModel.selectedDateCellList.first.date,
+                          'MMM dd일'),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
                     ),
-                  ),
-                  const Text(
-                    ' ~ ',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 11,
+                    const Text(
+                      ' ~ ',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
                     ),
-                  ),
+                  ],
+                  if (datePickerViewModel.selectedDateCellList.length > 1) ...[
+                    Text(
+                      dateFormat(
+                          datePickerViewModel.selectedDateCellList.last.date,
+                          'MMM dd일'),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
+                    ),
+                    Text(
+                      ' (${datePickerViewModel.dateRange}일)',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ]
                 ],
-                if (datePickerViewModel.selectedDateCellList.length > 1) ...[
-                  Text(
-                    dateFormat(
-                        datePickerViewModel.selectedDateCellList.last.date,
-                        'MMM dd일'),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 11,
-                    ),
-                  ),
-                  Text(
-                    ' (${datePickerViewModel.dateRange}일)',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 11,
-                    ),
-                  ),
-                ]
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
       bottom: (context) => Container(
