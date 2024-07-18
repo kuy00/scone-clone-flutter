@@ -26,8 +26,23 @@ final GoRouter routes = GoRouter(
     GoRoute(
       path: '/addPlan',
       pageBuilder: (BuildContext context, GoRouterState state) =>
-          const CupertinoPage(
-        child: AddPlanPage(),
+          CustomTransitionPage(
+        child: const AddPlanPage(),
+        transitionsBuilder: (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) =>
+            SlideTransition(
+          position: animation.drive(
+            Tween<Offset>(
+              begin: const Offset(0.0, 1.0),
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeIn)),
+          ),
+          child: child,
+        ),
       ),
       routes: <RouteBase>[
         GoRoute(

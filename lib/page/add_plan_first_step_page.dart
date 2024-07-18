@@ -26,7 +26,7 @@ class AddPlanFirstStepPage extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           if (context.read<AddPlanViewModel>().isFirst) {
             Future.delayed(
-              const Duration(milliseconds: 300),
+              const Duration(milliseconds: 500),
               () => _bottomSheet(context),
             );
             context.read<AddPlanViewModel>().setIsFirst();
