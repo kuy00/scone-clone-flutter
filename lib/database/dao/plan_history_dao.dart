@@ -10,14 +10,20 @@ class PlanHistoryDao extends DatabaseAccessor<Database>
     with _$PlanHistoryDaoMixin {
   PlanHistoryDao(super.db);
 
-  Future<List<PlanHistoryDto>> getByPlanId(int planId) =>
-      (db.select(planHistories)..where((t) => t.planId.equals(planId))).get();
+  Future<List<PlanHistoryDto>> getByPlanId(int planId) => (db
+          .select(planHistories)
+        ..where((t) => t.planId.equals(planId))
+        ..orderBy(
+            [(t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)]))
+      .get();
 
   Future<void> create(PlanHistoryDto planHistory) =>
       into(planHistories).insert(PlanHistoriesCompanion(
         planId: Value(planHistory.planId),
+        icon: Value(planHistory.icon ?? ''),
         type: Value(planHistory.type),
         amount: Value(planHistory.amount),
         memo: Value(planHistory.memo),
+        date: Value(planHistory.date),
       ));
 }

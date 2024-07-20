@@ -3,6 +3,7 @@ import 'package:flutter_study/view_model/add_history_view_model.dart';
 import 'package:flutter_study/widget/add_history/app_bar_widget.dart';
 import 'package:flutter_study/widget/add_history/content_text_field_widget.dart';
 import 'package:flutter_study/widget/add_history/date_select_field_widget.dart';
+import 'package:flutter_study/widget/add_history/plan_history_badge.dart';
 import 'package:flutter_study/widget/add_history/plan_history_type_button_widget.dart';
 import 'package:flutter_study/widget/add_history/price_text_field_widget.dart';
 import 'package:flutter_study/widget/button_widget.dart';
@@ -19,7 +20,7 @@ class AddHistoryPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) {
         AddHistoryViewModel viewModel = AddHistoryViewModel(planId);
-        viewModel.getPlan();
+        viewModel.init();
         return viewModel;
       },
       builder: (context, child) {
@@ -30,6 +31,7 @@ class AddHistoryPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 50,
@@ -69,6 +71,34 @@ class AddHistoryPage extends StatelessWidget {
                   height: 10,
                 ),
                 const DateSelectFieldWidget(),
+                const SizedBox(
+                  height: 25,
+                ),
+                const Text(
+                  '최근',
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Consumer<AddHistoryViewModel>(
+                  builder: (_, addHistoryViewModel, __) => Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.start,
+                    spacing: 15,
+                    runSpacing: 10,
+                    children: addHistoryViewModel.planHistories
+                        .map(
+                          (planHistory) => GestureDetector(
+                            onTap: () => context
+                                .read<AddHistoryViewModel>()
+                                .setHistoryData(planHistory),
+                            child: PlanHistoryBadge(planHistory: planHistory),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
               ],
             ),
           ),

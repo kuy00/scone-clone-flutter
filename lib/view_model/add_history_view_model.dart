@@ -9,6 +9,7 @@ import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enum/plan_history_type.dart';
+import 'package:flutter_study/util/number_util.dart';
 import 'package:get_it/get_it.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {
@@ -18,6 +19,7 @@ class AddHistoryViewModel extends ChangeNotifier {
 
   final int planId;
   late PlanEntity plan;
+  late List<PlanHistoryEntity> _planHistories;
   final TextEditingController _priceTextController = TextEditingController();
   final TextEditingController _contentTextController = TextEditingController();
   final FocusNode _priceTextFieldFocusNode = FocusNode();
@@ -68,6 +70,16 @@ class AddHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getPlanHistory() async {
+    _planHistories = await planHistoryRepository.getPlanHistoryByPlanId(planId);
+    notifyListeners();
+  }
+
+  void init() {
+    getPlan();
+    getPlanHistory();
+  }
+
   TextEditingController get priceTextController => _priceTextController;
   TextEditingController get contentTextController => _contentTextController;
   FocusNode get priceTextFieldFocusNode => _priceTextFieldFocusNode;
@@ -78,6 +90,7 @@ class AddHistoryViewModel extends ChangeNotifier {
   bool get isPriceFieldDeleteIconVisible => _isPriceFieldDeleteIconVisible;
   bool get isContentFieldDeleteIconVisible => _isContentFieldDeleteIconVisible;
   bool get isPlanInitialized => _isPlanInitialized;
+  List<PlanHistoryEntity> get planHistories => _planHistories;
 
   void setEmoji(String emoji) {
     _emoji = emoji;
@@ -94,13 +107,25 @@ class AddHistoryViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setHistoryData(PlanHistoryEntity planHistory) {
+    _isConsumption = planHistory.type == PlanHistoryType.consumption;
+    _emoji = planHistory.icon;
+    _priceTextController.text = currencyFormat(planHistory.amount);
+    _contentTextController.text = planHistory.memo;
+    _date = planHistory.date;
+
+    notifyListeners();
+  }
+
   PlanHistoryEntity get toPlanHistoryEntity {
     PlanHistoryEntity planHistoryEntity = PlanHistoryEntity(
       planId: planId,
+      icon: _emoji,
       type:
           _isConsumption ? PlanHistoryType.consumption : PlanHistoryType.income,
       amount: int.parse(_priceTextController.text.replaceAll(',', '')),
       memo: _contentTextController.text,
+      date: _date,
     );
 
     planHistoryRepository.createPlanHistory(planHistoryEntity);

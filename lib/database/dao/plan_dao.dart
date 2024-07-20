@@ -10,9 +10,8 @@ class PlanDao extends DatabaseAccessor<Database> with _$PlanDaoMixin {
   PlanDao(super.db);
 
   Future<List<PlanDto>> getAll() => (db.select(plans)
-        ..orderBy([
-          (t) => OrderingTerm(expression: t.createdAt, mode: OrderingMode.desc)
-        ]))
+        ..orderBy(
+            [(t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc)]))
       .get();
 
   Future<PlanDto> getById(int id) =>

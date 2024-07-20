@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/enum/plan_type.dart';
 import 'package:flutter_study/view_model/add_history_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,11 @@ class PlanHistoryTypeButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => context.read<AddHistoryViewModel>().setConsumption(),
+      onPressed: () {
+        if (context.read<AddHistoryViewModel>().plan.type == PlanType.free) {
+          context.read<AddHistoryViewModel>().setConsumption();
+        }
+      },
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.black,
         backgroundColor: const Color(0xFFF6F6F6),

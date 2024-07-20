@@ -6,9 +6,11 @@ extension PlanHistoryDtoExtension on PlanHistoryDto {
     return PlanHistoryEntity(
       id: id,
       planId: planId,
+      icon: icon,
       type: type,
       amount: amount,
       memo: memo,
+      date: date,
     );
   }
 }

@@ -25,7 +25,7 @@ class Database extends _$Database {
   }
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -39,6 +39,12 @@ class Database extends _$Database {
         }
         if (from < 3) {
           await m.addColumn(planHistories, planHistories.planId);
+        }
+        if (from < 4) {
+          await m.addColumn(planHistories, planHistories.icon);
+        }
+        if (from < 5) {
+          await m.addColumn(planHistories, planHistories.date);
         }
       },
     );
