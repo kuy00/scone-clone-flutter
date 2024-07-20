@@ -4,6 +4,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_study/database/repository/plan_history_repository.dart';
 import 'package:flutter_study/database/repository/plan_repository.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
@@ -12,6 +13,8 @@ import 'package:get_it/get_it.dart';
 
 class AddHistoryViewModel extends ChangeNotifier {
   final PlanRepository planRepository = GetIt.I<PlanRepository>();
+  final PlanHistoryRepository planHistoryRepository =
+      GetIt.I<PlanHistoryRepository>();
 
   final int planId;
   late PlanEntity plan;
@@ -92,15 +95,17 @@ class AddHistoryViewModel extends ChangeNotifier {
   }
 
   PlanHistoryEntity get toPlanHistoryEntity {
-    // TODO : API 소비하여 데이터 저장
-    return PlanHistoryEntity(
-        id: 999,
-        type: _isConsumption
-            ? PlanHistoryType.consumption
-            : PlanHistoryType.income,
-        amount: int.parse(_priceTextController.text.replaceAll(',', '')),
-        memo: _contentTextController.text,
-        createAt: DateTime.now());
+    PlanHistoryEntity planHistoryEntity = PlanHistoryEntity(
+      planId: planId,
+      type:
+          _isConsumption ? PlanHistoryType.consumption : PlanHistoryType.income,
+      amount: int.parse(_priceTextController.text.replaceAll(',', '')),
+      memo: _contentTextController.text,
+    );
+
+    planHistoryRepository.createPlanHistory(planHistoryEntity);
+
+    return planHistoryEntity;
   }
 
   @override
