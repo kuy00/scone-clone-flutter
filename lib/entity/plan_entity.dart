@@ -29,12 +29,12 @@ class PlanEntity {
       0,
       (sum, element) => element.type == PlanHistoryType.consumption
           ? sum + element.amount
-          : 0);
+          : sum);
 
   int get totalIncome => planHistory.fold(
       0,
       (sum, element) =>
-          element.type == PlanHistoryType.income ? sum + element.amount : 0);
+          element.type == PlanHistoryType.income ? sum + element.amount : sum);
 
   int get remainAmount => totalAmount - totalConsumption;
 }
