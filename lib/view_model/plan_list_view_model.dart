@@ -39,10 +39,20 @@ class PlanListViewModel extends ChangeNotifier {
 
   int get budget => _plans.fold(0, (sum, plan) => sum + plan.totalAmount);
 
-  int get dotsCount =>
-      ((plans.length - currentPage - 1) / maxVisibleDots).round() > 0
+  int get dotsCount {
+    int totalPageGroup = (plans.length / maxVisibleDots).ceil();
+    int currentPageGroup = ((currentPage + 1) / maxVisibleDots).ceil();
+
+    bool isLastPageGroup = currentPageGroup == totalPageGroup;
+
+    if (isLastPageGroup) {
+      return plans.length % maxVisibleDots == 0
           ? maxVisibleDots
           : plans.length % maxVisibleDots;
+    } else {
+      return maxVisibleDots;
+    }
+  }
 
   int getDotsIndex(int index) {
     return index +
