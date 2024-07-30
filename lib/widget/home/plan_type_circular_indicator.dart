@@ -15,69 +15,65 @@ class PlanTypeCircularIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => CircularIndicatorViewModel(plan: plan),
-        builder: (context, child) {
-          return CircularPercentIndicator(
-            radius: 100,
-            lineWidth:
-                context.watch<CircularIndicatorViewModel>().isPressed ? 4 : 1.5,
-            percent: context.read<CircularIndicatorViewModel>().percent,
-            circularStrokeCap: CircularStrokeCap.round,
-            progressColor: const Color(0xFFF2F2F2),
-            backgroundColor: Colors.transparent,
-            widgetIndicator: Center(
-              child: Container(
-                width: 14,
-                height: 14,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: Listener(
-                    onPointerDown: (e) => context
-                        .read<CircularIndicatorViewModel>()
-                        .setIsPressed(true),
-                    onPointerUp: (e) => context
-                        .read<CircularIndicatorViewModel>()
-                        .setIsPressed(false),
-                    child: Transform.rotate(
-                      angle: radians(-360 *
-                              context
-                                  .read<CircularIndicatorViewModel>()
-                                  .percent)
-                          .toDouble(),
-                      child: SvgPicture.asset(
-                        'assets/icons/timer.svg',
-                        colorFilter: const ColorFilter.mode(
-                            Color(0xFFF2F2F2), BlendMode.srcIn),
+      create: (_) => CircularIndicatorViewModel(plan: plan),
+      builder: (context, child) {
+        return Consumer<CircularIndicatorViewModel>(
+            builder: (_, circularIndicatorViewModel, __) =>
+                CircularPercentIndicator(
+                  radius: 100,
+                  lineWidth: circularIndicatorViewModel.isPressed ? 4 : 1.5,
+                  percent: circularIndicatorViewModel.timePercent,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  progressColor: const Color(0xFFF2F2F2),
+                  backgroundColor: Colors.transparent,
+                  widgetIndicator: Center(
+                    child: Container(
+                      width: 14,
+                      height: 14,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
-                    )),
-              ),
-            ),
-            animation: true,
-            center: CircularPercentIndicator(
-              radius: 90,
-              lineWidth: 12,
-              percent:
-                  plan.remainAmount.toDouble() / plan.totalAmount.toDouble(),
-              circularStrokeCap: CircularStrokeCap.round,
-              backgroundColor: const Color(0xFFF2F2F2),
-              progressColor: context
-                          .watch<CircularIndicatorViewModel>()
-                          .isPressed ||
-                      context.watch<CircularIndicatorViewModel>().percent == 0
-                  ? const Color(0xFFD5D5D5)
-                  : const Color(0xFF1773FC),
-              animation: true,
-              // TODO : animation 추가
-              center: context.watch<CircularIndicatorViewModel>().isPressed
-                  ? CircularInnerRemainingTime(
-                      startDate: plan.startDate, endDate: plan.endDate)
-                  : CircularInnerPlanTypeInfo(
-                      remainAmount: plan.remainAmount,
-                      totalAmount: plan.totalAmount),
-            ),
-          );
-        });
+                      child: Listener(
+                        onPointerDown: (e) =>
+                            circularIndicatorViewModel.setIsPressed(true),
+                        onPointerUp: (e) =>
+                            circularIndicatorViewModel.setIsPressed(false),
+                        child: Transform.rotate(
+                          angle: radians(
+                                  -360 * circularIndicatorViewModel.timePercent)
+                              .toDouble(),
+                          child: SvgPicture.asset(
+                            'assets/icons/timer.svg',
+                            colorFilter: const ColorFilter.mode(
+                                Color(0xFFF2F2F2), BlendMode.srcIn),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  animation: true,
+                  center: CircularPercentIndicator(
+                    radius: 90,
+                    lineWidth: 12,
+                    percent: circularIndicatorViewModel.amountPercent,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    backgroundColor: const Color(0xFFF2F2F2),
+                    progressColor: circularIndicatorViewModel.isPressed ||
+                            circularIndicatorViewModel.timePercent == 0
+                        ? const Color(0xFFD5D5D5)
+                        : const Color(0xFF1773FC),
+                    animation: true,
+                    // TODO : animation 추가
+                    center: circularIndicatorViewModel.isPressed
+                        ? CircularInnerRemainingTime(
+                            startDate: plan.startDate, endDate: plan.endDate)
+                        : CircularInnerPlanTypeInfo(
+                            remainAmount: plan.remainAmount,
+                            totalAmount: plan.totalAmount),
+                  ),
+                ));
+      },
+    );
   }
 }

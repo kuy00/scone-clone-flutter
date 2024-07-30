@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/util/datetime_util.dart';
+import 'package:flutter_study/widget/timer_widget.dart';
+import 'package:jiffy/jiffy.dart';
 
 class CircularInnerRemainingTime extends StatelessWidget {
   final DateTime startDate;
@@ -9,6 +12,11 @@ class CircularInnerRemainingTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 00시로 입력되어 남은 날짜 계산 시 +1을 해줌
+    DateTime nextDayStartDate = dateAdd(startDate, days: 1);
+    DateTime nextDayEndDate = dateAdd(endDate, days: 1);
+    int remainDate = dateDiff(DateTime.now(), nextDayEndDate, unit: Unit.day);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -25,29 +33,41 @@ class CircularInnerRemainingTime extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            endDate.difference(DateTime.now()).inDays.toInt() < 0
-                ? const Text(
-                    '완료',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                  )
-                : Text(
-                    '${endDate.difference(DateTime.now()).inDays}일',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            remainDate <= 0
+                ? isToday(endDate)
+                    ? TimerWidget(
+                        endDate: nextDayEndDate,
+                      )
+                    : const Text(
+                        '완료',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      )
+                : isAfter(startDate, DateTime.now())
+                    ? Text(
+                        '시작 ${dateDiff(DateTime.now(), nextDayStartDate, unit: Unit.day)}일 전',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : Text(
+                        '${remainDate + 1}일',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
           ],
         ),
         const SizedBox(
           height: 5,
         ),
         Text(
-          '/ ${endDate.difference(startDate).inDays}일',
+          '/ ${dateDiff(startDate, endDate, unit: Unit.day) + 1}일',
           style: const TextStyle(
             color: Colors.grey,
             fontSize: 13,

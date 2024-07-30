@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_study/entity/plan_entity.dart';
 import 'package:flutter_study/entity/plan_history_entity.dart';
 import 'package:flutter_study/enum/plan_type.dart';
+import 'package:flutter_study/util/datetime_util.dart';
 import 'package:flutter_study/view_model/plan_list_view_model.dart';
 import 'package:flutter_study/widget/home/free_type_circular_indicator.dart';
 import 'package:flutter_study/widget/home/plan_type_circular_indicator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 
 class PlanCardWidget extends StatelessWidget {
@@ -59,7 +61,9 @@ class PlanCardWidget extends StatelessWidget {
             plan.type == PlanType.free
                 ? FreeTypeCircularIndicator(plan: plan)
                 : PlanTypeCircularIndicator(plan: plan),
-            plan.endDate.difference(DateTime.now()).inDays.toInt() < 0
+            dateDiff(DateTime.now(), dateAdd(plan.endDate, days: 1),
+                        unit: Unit.second) <=
+                    0
                 ? ElevatedButton(
                     onPressed: () => print('complete  plan'),
                     style: ButtonStyle(

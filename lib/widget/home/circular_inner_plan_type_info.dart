@@ -13,11 +13,24 @@ class CircularInnerPlanTypeInfo extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          '남은 예산',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 10,
+        Visibility(
+          visible: remainAmount > 0,
+          child: const Text(
+            '남은 예산',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 10,
+            ),
+          ),
+        ),
+        Visibility(
+          visible: remainAmount < 0,
+          child: const Text(
+            '초과됨',
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 10,
+            ),
           ),
         ),
         const SizedBox(

@@ -10,16 +10,33 @@ class CircularIndicatorViewModel extends ChangeNotifier {
 
   CircularIndicatorViewModel({required this.plan});
 
-  double get percent {
-    var percent =
-        dateDiff(DateTime.now(), plan.endDate, unit: Unit.day).toDouble() /
-            dateDiff(plan.startDate, plan.endDate, unit: Unit.day).toDouble();
+  double get timePercent {
+    var percent = dateDiff(DateTime.now(), dateAdd(plan.endDate, days: 1),
+                unit: Unit.second)
+            .toDouble() /
+        dateDiff(plan.startDate, dateAdd(plan.endDate, days: 1),
+                unit: Unit.second)
+            .toDouble();
 
-    return percent < 0 || percent.isNaN || percent.isInfinite
-        ? 0
-        : percent > 1
-            ? 1
-            : percent;
+    if (percent.isNaN || percent.isInfinite || percent < 0) {
+      return 0;
+    } else if (percent > 1) {
+      return 1;
+    } else {
+      return percent;
+    }
+  }
+
+  double get amountPercent {
+    var percent = plan.remainAmount.toDouble() / plan.totalAmount.toDouble();
+
+    if (percent.isNaN || percent.isInfinite || percent < 0) {
+      return 0;
+    } else if (percent > 1) {
+      return 1;
+    } else {
+      return percent;
+    }
   }
 
   void setIsPressed(flag) {
